@@ -1,0 +1,9 @@
+# Build settings
+
+markdown: kramdown
+highlighter: rouge
+port: 8000
+
+sass:
+      sass_dir: assets/css
+      style: :compressed

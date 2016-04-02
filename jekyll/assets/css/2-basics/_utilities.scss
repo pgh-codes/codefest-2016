@@ -1,0 +1,73 @@
+// Utilities
+
+.clearfix {
+    clear: both;
+    display: block;
+}
+
+.mobile-show {
+    display: none !important;
+}
+
+.tablet-show {
+    display: none !important;
+}
+
+@include media($tablet) {
+    .tablet-hide {
+        display: none !important;
+    }   
+    
+    .tablet-show {
+        display: block !important;
+    }
+}
+
+@include media($mobile) {
+    .mobile-hide, .tablet-show {
+        display: none !important;
+    }
+    .mobile-show {
+        display: block !important;
+    }   
+}
+
+.flex {
+    display: flex;
+}
+
+.column-space {
+    @include span-columns(1);
+    display: block;
+
+    @include media($mobile) {
+        display: none;
+    }
+}
+
+        
+.bdr-a {
+    border: 1px solid $drk-gray;
+}
+
+.bdr-lr {
+    border-left: 1px solid $drk-gray;
+    border-right: 1px solid $drk-gray;
+}
+
+.bdr-t {
+    border-top: 1px solid $drk-gray;
+}
+
+.bdr-r {
+    border-right: 1px solid $drk-gray;
+}
+
+.bdr-b {
+    border-bottom: 1px solid $drk-gray;
+}
+
+.bdr-l {
+    border-left: 1px solid $drk-gray;
+}
+

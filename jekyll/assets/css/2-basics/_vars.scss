@@ -1,0 +1,29 @@
+/*----------------------------------------------------
+	VAIRABLES
+-----------------------------------------------------*/
+
+// Typography
+$primary-font-family:  'Source Sans Pro', Georgia, Garamond, Times,"Times New Roman",serif !default;
+$primary-font-color: #404040;
+$primary-heading-font: 'bebasregular', Helvetica, Arial, sans-serif;
+$secondary-heading-font: aleolight, Helvetica, Arial, sans-serif;
+$nav-font: 'bebasregular', Helvetica, Arial, sans-serif;
+
+// Colors
+$drk-green:  #023c34;
+$lgt-green:  #a5d5a7;
+$teal:       #45bea7;
+$yellow:     #fbb03f;
+$drk-gray:   #4a4e4b;
+$lgt-gray:   #ededed;
+$bkg-color:  #ffffff;
+
+$primary-color:  $drk-green;
+$secondary-color: $teal;
+
+// Images
+$logo-path: url(../img/logo.svg);
+$hero-path: url(../img/hero-bkg.jpg);
+$about-photo-path-desktop: url(../img/about-photo-desktop.jpg);
+$about-photo-path-tablet: url(../img/about-photo-tablet.jpg);
+$about-photo-path-mobile: url(../img/about-photo-mobile.jpg);

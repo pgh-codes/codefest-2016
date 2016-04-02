@@ -1,0 +1,87 @@
+/*----------------------------------------------------
+	MAIN TYPE STYLING
+-----------------------------------------------------*/
+
+// Styling
+
+html {
+    font-family: $primary-font-family;
+    color: $primary-font-color;
+    font-size: 17px;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+    @media (max-width: 900px) {
+      html { font-size: 15px; }
+    }
+
+    @media (max-width: 400px) {
+      html { font-size: 13px; }
+    }
+
+p {
+    font-size: em(15);
+    line-height: em(28);
+    margin-bottom: .8em;
+    
+    &:last-of-type, &:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+p.intro {
+    font-size: em(17);
+    line-height: em(26);
+    margin-bottom: .6em;
+    
+    &:last-of-type, &:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+
+h1 {
+    font-family: $primary-heading-font;
+    font-size: em(40) !important;
+    margin: 0 0 15px 0;
+    color: $drk-green;
+    word-spacing: 5px;
+}
+    
+h2 {
+    font-family: $secondary-heading-font;
+    line-height: 1.2;
+    color: $teal;
+    font-size: em(25);
+    margin: 30px 0 17px 0;
+}
+
+h3 {
+    font-size: em(18);
+    font-weight: 600;
+    margin: 6px 0 6px 0;
+}
+
+h4 {
+    font-size: em(14);
+    font-weight: 400;
+    margin: 1.25em 0 4px 0;
+    text-decoration: underline;
+    color: lighten($drk-gray, 5);
+}
+
+span.block-text {
+    font-family: 'bebasregular', Helvetica, Arial, sans-serif;
+    letter-spacing: .05em;
+    display: inline-block;
+    padding: 6px 6px 2px 6px;
+    background-color: $teal;
+    color: #fff;
+    margin: 0 5px 7px 0;
+}
+
+.sml-txt {
+    font-size: em(12);
+}

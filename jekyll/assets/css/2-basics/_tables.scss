@@ -1,0 +1,66 @@
+/*----------------------------------------------------
+	TABLE STYLING
+
+
+
+.tg .tg-s6z2{text-align:center}
+.tg .tg-pp9q{background-color:#00d2cb;text-align:center}
+.tg .tg-ci37{background-color:#ecf4ff;text-align:center}
+.tg .tg-ltqa{background-color:#bbdaff;text-align:center}
+.tg .tg-24fa{background-color:#96fffb;text-align:center}
+.tg .tg-hy62{background-color:#c0c0c0}
+.tg .tg-yw4l{vertical-align:top}
+
+
+.services-table {
+    border-collapse:collapse;
+    border-spacing:0;
+    margin: 0 auto;
+    font-size: em(13);
+    
+    td, th {
+        padding: 11px 20px;
+        border-style: 1px solid $drk-gray;
+        overflow:hidden;
+        word-break:normal;
+    }
+
+    .callout {
+        background-color: $teal;
+        font-weight: 600;
+        font-family: $nav-font;
+        letter-spacing: 2px;
+        color: white;
+        text-transform: uppercase;
+        padding: .8em .5em .5em .5em;
+    }
+    
+    .title {
+        padding-top: 1em;
+        font-size: em(34);
+        line-height: em(12);
+        text-align: center;
+        text-transform: uppercase;
+        
+        span {
+            font-size: em(7);
+        }
+    }
+}
+
+@include media($mobile) {
+    .services-table {
+        width: auto !important;
+    }
+    
+    .services-table col {
+        width: auto !important;
+    }
+    
+    .st-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: auto 0px;
+    }
+}
+-----------------------------------------------------*/
