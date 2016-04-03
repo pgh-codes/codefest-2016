@@ -54,14 +54,44 @@ a:hover {
     color: darken($blue, 50); 
 }
 
+hr {
+    border-top: 1px solid #aaa;
+    margin: 1.55em 0;
+    outline: 0;
+}
+
 header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: auto;
     background: $blue;
-    text-align: right;
-    padding: 0 2em;
+    padding: 0 .875em;
     
-    @include media($mobile) {
-       text-align: center;
+    .logo {
+        width: 55%;
+        max-width: 300px;
+        margin: 1.15em 0;
     }
+    
+    #{$all-buttons} {
+        padding: .5em .75em;
+    }
+
+}
+
+.login-wrap {
+    padding: 2em;    
+    
+    .logo {
+        margin: 2em 0;
+    }
+}
+
+.space-around {
+    padding: 2em;
 }
 
 /* Sticky Footer by Ryan Fait, ryanfait.com */
@@ -89,15 +119,6 @@ footer, .push {
         height: 25px;
     }
 }
-
-body.home .content {
-    padding: 2em;    
-    
-    .logo {
-        margin: 2em 0;
-    }
-}
-
 
 footer {
     background-color: $blue;

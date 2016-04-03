@@ -8,7 +8,7 @@
 
   <body class="home">
     <div class="wrapper">
-        <div class="content">
+        <div class="login-wrap">
             <img src="{{ site.url }}/assets/imgs/logo_color.svg" onerror="this.src='{{ site.url }}/assets/imgs/logo_color.png'; this.onerror=null;" class="logo">
 
             <form class="login-form" id="login-form">
@@ -27,7 +27,7 @@
                 <label for="shift-end">What time does your shift end?</label>
                 <input type="time" name="shift-end" id="shift-end" required>
                 
-                <button type="submit" form="login-form" value="Submit" id="login-btn">Login <i class="fa fa-caret-right"></i></button>
+                <button type="submit" value="Submit" id="login-btn">Login <i class="fa fa-caret-right"></i></button>
                 
                 <script>
                     //Need to add logic so that if you are an admin, then the change of pw prompts the submit; if you are a reg user, its the shift time change

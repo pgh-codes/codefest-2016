@@ -22,19 +22,9 @@ html {
     }
 
 p {
-    font-size: em(15);
-    line-height: em(28);
+    font-size: em(18);
+    line-height: em(27);
     margin-bottom: .8em;
-    
-    &:last-of-type, &:last-child {
-        margin-bottom: 0 !important;
-    }
-}
-
-p.intro {
-    font-size: em(17);
-    line-height: em(26);
-    margin-bottom: .6em;
     
     &:last-of-type, &:last-child {
         margin-bottom: 0 !important;
@@ -45,21 +35,21 @@ p.intro {
 h1 {
     font-family: $primary-heading-font-family;
     font-weight: $primary-heading-font-weight;
-    font-size: em(40) !important;
-    margin: 0 0 15px 0;
-    color: $blue;
+    font-size: em(36) !important;
+    margin: 0 0 10px 0;
+    color: darken($green, 10%);
     word-spacing: 5px;
+    text-transform: uppercase;
 }
     
 h2 {
     line-height: 1.2;
     color: $drk-gray;
     font-size: em(25);
-    margin: 30px 0 17px 0;
+    margin: 20px 0 12px 0;
 }
 
 h3 {
-    font-size: em(18);
     font-weight: 600;
     margin: 6px 0 6px 0;
 }
@@ -74,4 +64,5 @@ h4 {
 
 .sml-txt {
     font-size: em(12);
+    font-weight: 700;
 }

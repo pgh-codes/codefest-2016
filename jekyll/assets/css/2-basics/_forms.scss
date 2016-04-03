@@ -35,6 +35,10 @@ form.login-form {
         padding: .75em;
         margin: 0;
         text-align: center;
+        @include border-top-radius(0);
+        @include border-right-radius(0);
+        @include border-bottom-radius(0);
+        @include border-left-radius(0);
 
         &:hover {
             background-color: $navy;
@@ -42,3 +46,41 @@ form.login-form {
     }
 }
 
+form {
+    
+    label {
+        display: block;
+        margin-top: 2em;
+        
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
+    
+    input, textarea {
+        border: 1px solid #aaa;
+        outline: 0;
+        padding: .5em;
+        @include border-top-radius(4px);
+        @include border-right-radius(4px);
+        @include border-bottom-radius(4px);
+        @include border-left-radius(4px);
+        margin: .85em 0 0 0;
+    }
+    
+    textarea {
+        width: 100%;
+        min-height: 70px;
+    }
+    
+    textarea ~ #{$all-buttons} {
+        margin-top: .5em !important;
+    }
+    
+    output { 
+        margin: 1.35em .75em 0 0;
+        color: $blue;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+}

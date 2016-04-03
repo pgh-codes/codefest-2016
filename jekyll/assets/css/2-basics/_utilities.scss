@@ -1,8 +1,16 @@
 // Utilities
 
 .clearfix {
-    clear: both;
+    @include clearfix;
+}
+.pull-right {
     display: block;
+    float: right;
+}
+
+.pull-left {
+    display: block;
+    float: left;
 }
 
 .mobile-show {

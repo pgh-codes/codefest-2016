@@ -3,14 +3,11 @@
 
   {% include head.html %}
 
-  <body>
+  <body {{ page.start-modal }}>
     {% include header.html %}
 
-    <div class="content">
-        {{ content }}
-    </div>
-      
-
+    {{ content }}
+   
   </body>
 
 </html>

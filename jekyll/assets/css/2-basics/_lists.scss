@@ -1,0 +1,26 @@
+ul.list-icon-group {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    
+    li {
+        margin-bottom: 1.25em;
+        
+        i.fa {
+            min-width: 1.1em;
+        }
+        
+        ul.recent-comments {
+            margin: 10px 0 0 0;
+            padding-left: 1.75em;
+            list-style-type: none;
+            font-size: em(13);
+            font-style: italic;
+            color: lighten($drk-gray, 10%);
+            
+            li {
+                margin: 0 0 10px 0;
+            }
+        }
+    }
+}

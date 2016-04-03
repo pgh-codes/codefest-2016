@@ -1,0 +1,65 @@
+#{$all-buttons} {
+    border: none;
+    outline: none;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: .075em;
+    background-color: $navy;
+    padding: .7em .9em;
+    @include border-top-radius(6px);
+    @include border-right-radius(6px);
+    @include border-bottom-radius(6px);
+    @include border-left-radius(6px);
+    margin: 1.15em 0;
+    
+    &.large {
+        padding: 1em;
+        font-size: em(26); 
+    }
+    
+    &.secondary {
+        padding: .375em .5em;
+        font-size: em(13);
+        letter-spacing: .05em;
+        font-weight: 400;
+        background-color: $drk-gray;
+    }
+    
+    &.overlay {
+        position:absolute;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        border: none;
+        outline: none;
+        text-transform: uppercase;
+        width: 100%;
+        background-color: darken($green, 10%);
+        @include border-top-radius(0);
+        @include border-right-radius(0);
+        @include border-bottom-radius(0);
+        @include border-left-radius(0);
+
+        &:hover {
+            background-color: darken($green, 25%);
+        }
+    }
+}
+
+#{$all-buttons-focus},
+#{$all-buttons-hover} {
+  background-color: darken($navy, 8%);
+    
+    &.secondary {
+        background-color: darken($drk-gray, 8%);
+    }
+}
+
+#{$all-buttons-active} {
+    background-color: darken($navy, 1%);
+    
+    &.secondary {
+        background-color: darken($drk-gray, 1%);
+    }
+}

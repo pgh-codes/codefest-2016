@@ -43,7 +43,7 @@
     <meta property="og:site_name" content="Trash Connect / Codefest 2016" />
     <meta property="og:title" content="Trash Connect / Codefest 2016 / " />
     <meta property="og:description" content="Trash Connect / Codefest 2016" />
-    <meta property="og:url" content="/" />
+    <meta property="og:url" content="/dpw-staff.html" />
     <meta property="og:image" content="/assets/imgs/social-sharing.jpg" />
     <meta property="article:published_time" content=" 2016-04-03 17:10:20 -0400" />
     
@@ -56,49 +56,95 @@
 
 </head>
 
-  <body class="home">
-    <div class="wrapper">
-        <div class="login-wrap">
-            <img src="/assets/imgs/logo_color.svg" onerror="this.src='/assets/imgs/logo_color.png'; this.onerror=null;" class="logo">
+  <body >
+    <header class="clearfix">
+   <img src="/assets/imgs/logo_white.svg" onerror="this.src='/assets/imgs/logo_white.png'; this.onerror=null;" class="logo pull-left">
+    <button class="pull-right">LOGOUT</button>
+</header>
 
-            <form class="login-form" id="login-form">
-                <label for="name">Name</label>
-                <select name="name" required>
-                  <option value="pdp staff">PDP Staff</option>
-                  <option value="dpw staff">DPW Staff</option>
-                  <option value="pdp admin">DPD Admin</option>
-                  <option value="dpw admin">DPW Staff</option>
-                </select>
+    <style type="text/css">
+    #map { 
+        height: 100%; 
+    }
+</style>
 
+<div id="map"></div>
+<script>
+  var map;
+  function initMap() {
+    var coordinates = {};
+    navigator.geolocation.getCurrentPosition(
+        function (pos) {
+            var crd = pos.coords;
+            starting_coordinates = {lat: crd.latitude, lng: crd.longitude}
 
-                <label for="password">Password</label>
-                <input type="password" name="password" placeholder="*********" required>
-                
-                <label for="shift-end">What time does your shift end?</label>
-                <input type="time" name="shift-end" id="shift-end" required>
-                
-                <button type="submit" value="Submit" id="login-btn">Login <i class="fa fa-caret-right"></i></button>
-                
-                <script>
-                    //Need to add logic so that if you are an admin, then the change of pw prompts the submit; if you are a reg user, its the shift time change
-                    $(document).ready(function() {
-                        $('#login-btn').toggle();
-                        $('#shift-end').change(function(){
-                            $('#login-btn').slideToggle( 300, function() {
-                            });
-                        });
-                    });
-                </script>
-            </form>
-        </div>
-        
-        <div class="push"></div>
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: starting_coordinates,
+                zoom: 16	
+            });
+
+            marker = new google.maps.Marker({
+                position: starting_coordinates,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                title: 'We Have Found You'
+            });
+            marker.addListener('click', function () {
+                youAreHere = new google.maps.InfoWindow({content: marker.title});
+                youAreHere.open(map, marker);
+            });
+        },
+        function (err) {
+            alert('ERROR(' + err.code + '): ' + err.message);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        }
+    );
+
+  }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap" async="" defer=""></script>
+
+<p><a href="#"><button class="large overlay" onclick="openModal('#filter-route');">Create Route</button></a></p>
+
+<div id="filter-route" class="modal-container">  
+    <div class="modal-header">
+        <a href="#" class="modal-close close">×</a>
+        <h3><i class="fa fa-filter"></i> Filter Route</h3>
     </div>
-      
-    <footer>
-        &nbsp;
-    </footer>
 
+    <div class="modal-body">
+        <form id="create-route-form">
+            <label for="filter-bags">How many bags can be pick up?</label>
+            <input type="range" name="filter-bags" id="filter-bags" min="10" value="1" max="60" step="1" oninput="outputUpdate(value)" class="pull-left" required="" />
+            <output for="filter-bags" id="bags" class="pull-right">1 bag</output>
+            <div class="clearfix">&nbsp;</div>
+            
+            <label for="filter-time">How long should this route take?</label>
+            <input type="range" name="filter-time" id="filter-time" min="10" value="10" max="60" step="10" oninput="outputUpdate(value)" class="pull-left" required="" />
+            <output for="filter-time" id="minutes" class="pull-right">10 min.</output>
+            <div class="clearfix">&nbsp;</div>
+            
+            <script>
+                function outputUpdate(min) {
+                    document.querySelector('#minutes').value = min + ' min.';
+                }
+                
+                function outputUpdate(bags) {
+                    document.querySelector('#bags').value = bags + ' bags';
+                }
+            </script>
+            
+            <a href="#" class="modal-close"><button value="Go!" class="pull-right">Go!</button></a>
+        </form>
+    </div>    
+</div>
+
+   
   </body>
 
 </html>
