@@ -1,0 +1,132 @@
+/*----------------------------------------------------
+	CORE STYLING
+-----------------------------------------------------*/
+
+@-ms-viewport {
+  width: device-width; /*Indicates the preferred viewport width used in determining the size of the initial containing block.*/
+}
+
+* {
+	margin: 0; /* For sticky footer to work */
+}
+
+
+html, body {
+	height: 100%; /* For sticky footer to work */
+}
+
+body {
+    background: $bkg-color;
+}
+
+@include selection {
+    background-color: $green;
+    color: white;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+a img {
+    border: none;
+    outline: none;
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */ 
+
+}
+
+a {
+    font-weight: 400;
+    color: $navy;
+    outline: none; 
+    text-decoration: underline;
+    transition-property: all;
+    transition-duration: .25s;
+    transition-timing-function: ease-in;
+    transition-delay: none;
+}
+
+a:hover {
+    color: darken($blue, 50); 
+}
+
+hr {
+    border-top: 1px solid #aaa;
+    margin: 1.55em 0;
+    outline: 0;
+}
+
+header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: auto;
+    background: $blue;
+    padding: 0 .875em;
+    
+    .logo {
+        width: 55%;
+        max-width: 300px;
+        margin: 1.15em 0;
+    }
+    
+    #{$all-buttons} {
+        padding: .5em .75em;
+    }
+
+}
+
+.login-wrap {
+    padding: 2em;    
+    
+    .logo {
+        margin: 2em 0;
+    }
+}
+
+.space-around {
+    padding: 2em;
+}
+
+/* Sticky Footer by Ryan Fait, ryanfait.com */
+.wrapper {
+    min-height: 100%;
+    margin: 0 auto -25px; /* the bottom margin is the negative value of the footer's height */
+
+    @include media($tablet) {
+        margin: 0 auto -25px;
+    }
+    
+    @include media($mobile) {
+        margin: 0 auto -25px; 
+    }
+}
+
+footer, .push {
+	height: 25px; /* '.push' must be the same height as 'footer' */
+    
+    @include media($tablet) {
+        height: 25px;
+    }
+    
+    @include media($mobile) {
+        height: 25px;
+    }
+}
+
+footer {
+    background-color: $blue;
+    color: #fff;
+    
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+}  

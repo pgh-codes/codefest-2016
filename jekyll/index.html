@@ -1,0 +1,54 @@
+---
+---
+
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body class="home">
+    <div class="wrapper">
+        <div class="login-wrap">
+            <img src="{{ site.url }}/assets/imgs/logo_color.svg" onerror="this.src='{{ site.url }}/assets/imgs/logo_color.png'; this.onerror=null;" class="logo">
+
+            <form class="login-form" id="login-form">
+                <label for="name">Name</label>
+                <select name="name" required>
+                  <option value="pdp staff">PDP Staff</option>
+                  <option value="dpw staff">DPW Staff</option>
+                  <option value="pdp admin">DPD Admin</option>
+                  <option value="dpw admin">DPW Staff</option>
+                </select>
+
+
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="*********" required>
+                
+                <label for="shift-end">What time does your shift end?</label>
+                <input type="time" name="shift-end" id="shift-end" required>
+                
+                <button type="submit" value="Submit" id="login-btn">Login <i class="fa fa-caret-right"></i></button>
+                
+                <script>
+                    //Need to add logic so that if you are an admin, then the change of pw prompts the submit; if you are a reg user, its the shift time change
+                    $(document).ready(function() {
+                        $('#login-btn').toggle();
+                        $('#shift-end').change(function(){
+                            $('#login-btn').slideToggle( 300, function() {
+                            });
+                        });
+                    });
+                </script>
+            </form>
+        </div>
+        
+        <div class="push"></div>
+    </div>
+      
+    <footer>
+        &nbsp;
+    </footer>
+
+  </body>
+
+</html>

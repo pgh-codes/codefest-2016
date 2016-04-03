@@ -1,0 +1,68 @@
+/*----------------------------------------------------
+	MAIN TYPE STYLING
+-----------------------------------------------------*/
+
+// Styling
+
+html {
+    font-family: $primary-font-family;
+    font-weight: $primary-font-weight;
+    color: $primary-font-color;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+    @media (max-width: 900px) {
+      html { font-size: 15px; }
+    }
+
+    @media (max-width: 400px) {
+      html { font-size: 13px; }
+    }
+
+p {
+    font-size: em(18);
+    line-height: em(27);
+    margin-bottom: .8em;
+    
+    &:last-of-type, &:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+
+h1 {
+    font-family: $primary-heading-font-family;
+    font-weight: $primary-heading-font-weight;
+    font-size: em(36) !important;
+    margin: 0 0 10px 0;
+    color: darken($green, 10%);
+    word-spacing: 5px;
+    text-transform: uppercase;
+}
+    
+h2 {
+    line-height: 1.2;
+    color: $drk-gray;
+    font-size: em(25);
+    margin: 20px 0 12px 0;
+}
+
+h3 {
+    font-weight: 600;
+    margin: 6px 0 6px 0;
+}
+
+h4 {
+    font-size: em(14);
+    font-weight: 400;
+    margin: 1.25em 0 4px 0;
+    text-decoration: underline;
+    color: lighten($drk-gray, 5);
+}
+
+.sml-txt {
+    font-size: em(12);
+    font-weight: 700;
+}

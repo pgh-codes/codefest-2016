@@ -1,0 +1,41 @@
+// Utilities
+
+.clearfix {
+    @include clearfix;
+}
+.pull-right {
+    display: block;
+    float: right;
+}
+
+.pull-left {
+    display: block;
+    float: left;
+}
+
+.mobile-show {
+    display: none !important;
+}
+
+.tablet-show {
+    display: none !important;
+}
+
+@include media($tablet) {
+    .tablet-hide {
+        display: none !important;
+    }   
+    
+    .tablet-show {
+        display: block !important;
+    }
+}
+
+@include media($mobile) {
+    .mobile-hide, .tablet-show {
+        display: none !important;
+    }
+    .mobile-show {
+        display: block !important;
+    }   
+}

@@ -1,0 +1,86 @@
+form.login-form {
+    padding: .5em;
+    font-size: em(22);
+    
+    input, select {
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 100%;
+        border-bottom: 2px solid $lgt-gray; 
+        padding: 10px 0;
+        margin-bottom: 25px;
+    }
+    
+    label {
+        font-size: em(12);
+        font-weight: 700;
+        text-transform: uppercase;
+        display: block;
+        margin: 1.25em 0 .5em 0;
+    }
+    
+    button {
+        position:absolute;
+        bottom: 0;
+        left: 0;
+        border: none;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: em(36);
+        width: 100%;
+        background-color: $blue;
+        color: #fff;
+        padding: .75em;
+        margin: 0;
+        text-align: center;
+        @include border-top-radius(0);
+        @include border-right-radius(0);
+        @include border-bottom-radius(0);
+        @include border-left-radius(0);
+
+        &:hover {
+            background-color: $navy;
+        }
+    }
+}
+
+form {
+    
+    label {
+        display: block;
+        margin-top: 2em;
+        
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
+    
+    input, textarea {
+        border: 1px solid #aaa;
+        outline: 0;
+        padding: .5em;
+        @include border-top-radius(4px);
+        @include border-right-radius(4px);
+        @include border-bottom-radius(4px);
+        @include border-left-radius(4px);
+        margin: .85em 0 0 0;
+    }
+    
+    textarea {
+        width: 100%;
+        min-height: 70px;
+    }
+    
+    textarea ~ #{$all-buttons} {
+        margin-top: .5em !important;
+    }
+    
+    output { 
+        margin: 1.35em .75em 0 0;
+        color: $blue;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+}

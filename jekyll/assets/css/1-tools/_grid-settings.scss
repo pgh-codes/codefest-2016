@@ -1,0 +1,17 @@
+// Import neat-helpers if you are planning to use new-breakpoint() to define new variables
+@import "neat/neat-helpers";
+
+// Change the grid settings
+$column: 45px;
+$gutter: 30px;
+$grid-columns: 12;
+$max-width: 960px;
+
+// Define your breakpoints
+$tablet: new-breakpoint(max-width 830px 9);
+$mobile: new-breakpoint(max-width 600px 4);
+
+$visual-grid: false;
+$visual-grid-color: yellow;
+$visual-grid-index: front;
+$visual-grid-opacity: 0.2;
