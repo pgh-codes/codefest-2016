@@ -1,5 +1,6 @@
 # Build settings
 
+url: .
 markdown: kramdown
 highlighter: rouge
 port: 8000
