@@ -43,9 +43,9 @@
     <meta property="og:site_name" content="Trash Connect / Codefest 2016" />
     <meta property="og:title" content="Trash Connect / Codefest 2016 / " />
     <meta property="og:description" content="Trash Connect / Codefest 2016" />
-    <meta property="og:url" content="/admin.html" />
+    <meta property="og:url" content="/pdp-staff.html" />
     <meta property="og:image" content="/assets/imgs/social-sharing.jpg" />
-    <meta property="article:published_time" content=" 2016-04-03 17:55:51 -0400" />
+    <meta property="article:published_time" content=" 2016-04-03 18:02:43 -0400" />
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -56,13 +56,25 @@
 
 </head>
 
-  <body >
+  <body onload="openModal('#trash-can-info');">
     <header class="clearfix">
    <img src="/assets/imgs/logo_white.svg" onerror="this.src='/assets/imgs/logo_white.png'; this.onerror=null;" class="logo pull-left">
     <button class="pull-right">LOGOUT</button>
 </header>
 
-    <style type="text/css">
+    <div id="getting-started" class="modal-container">  
+    <div class="modal-header">
+        <a href="#" class="modal-close close">×</a>
+        <h3><i class="fa fa-home"></i> Getting Started</h3>
+    </div>
+
+    <div class="modal-body">
+        <p>Select a trash can location to mark it as ready for DPW pickup.</p>
+        <a href="#" class="modal-close"><button class="pull-right">Got it!</button></a>
+    </div>
+</div>
+
+<style type="text/css">
     #map { 
         height: 100%; 
     }
@@ -109,44 +121,47 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap" async="" defer=""></script>
 
-<div class="flex btn-grp">
-    <a href="#"><button class="large" onclick="openModal('#manage-team');"><i class="fa fa-users"></i></button></a>
-    <a href="#"><button class="large" onclick="openModal('#manage-trash-cans');"><i class="fa fa-trash"></i></button></a>
-    <a href="#"><button class="large" onclick="openModal('#export-data');"><i class="fa fa-bar-chart"></i></button></a>
-</div>
-
-<div id="manage-team" class="modal-container">  
+<!--Trash Can Info - modal that will appear when a trash location on the map is click
+<div id="trash-can-info" class="modal-container">  
     <div class="modal-header">
         <a href="#" class="modal-close close">×</a>
-        <h3><i class="fa fa-filter"></i> Filter Route</h3>
+        <h3><i class="fa fa-map-marker"></i> Details</h3>
     </div>
 
     <div class="modal-body">
-        <form id="create-route-form">
-            <label for="filter-bags">How many bags can be pick up?</label>
-            <input type="range" name="filter-bags" id="filter-bags" min="10" value="1" max="60" step="1" oninput="outputUpdate(value)" class="pull-left" required="" />
-            <output for="filter-bags" id="bags" class="pull-right">1 bag</output>
-            <div class="clearfix">&nbsp;</div>
-            
-            <label for="filter-time">How long should this route take?</label>
-            <input type="range" name="filter-time" id="filter-time" min="10" value="10" max="60" step="10" oninput="outputUpdate(value)" class="pull-left" required="" />
-            <output for="filter-time" id="minutes" class="pull-right">10 min.</output>
-            <div class="clearfix">&nbsp;</div>
-            
-            <script>
-                function outputUpdate(min) {
-                    document.querySelector('#minutes').value = min + ' min.';
-                }
-                
-                function outputUpdate(bags) {
-                    document.querySelector('#bags').value = bags + ' bags';
-                }
-            </script>
-            
-            <a href="#" class="modal-close"><button value="Go!" class="pull-right">Go!</button></a>
+        <ul class="list-icon-group">
+            <li><i class="fa fa-clock-o"></i> Last Pickup: 00:00 PM</li>
+            <li><i class="fa fa-info-circle"></i> 
+                Features:&nbsp;&nbsp;
+                <span class="can-types">
+                <i class="fa fa-certificate on"></i>
+                <i class="fa fa-recycle"></i>
+                <i class="fa fa-fire on"></i>
+                <i class="fa fa-trash gray"><span class="sml-txt">G</span></i>
+                <i class="fa fa-trash black on"><span class="sml-txt">B</span></i>
+                </span>
+            </li>
+            <li><i class="fa fa-comment"></i> Recent Comments
+                <ul class="recent-comments">
+                    <li>Comment here <span class="sml-txt">(Apr 1, 2016)</span></li>
+                    <li>Comment here <span class="sml-txt">(Mar 11, 2016)</span></li>
+                    <li>Comment here <span class="sml-txt">(Dec 20, 2015)</span></li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr>
+
+        <h3>New Pickup Request</h3>
+        <form id="new-pickup-form">
+            <input type="number" name="bag-number" id="bag-number" placeholder="# of Bags" required>
+            <textarea name="comments" id="comments" placeholder="Comments? (Optional)"></textarea>
+            <button type="submit" form="new-pickup-form" value="Create" class="pull-right">Create</button>
         </form>
-    </div>    
+
+    </div>
 </div>
+-->
 
    
   </body>

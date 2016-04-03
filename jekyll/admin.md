@@ -4,7 +4,11 @@ layout: default
 
 {% include map.html %}
 
-<a href="#"><button class="large overlay" onclick="openModal('#manage-team');"><i class="fa fa-users"></i></button></a>
+<div class="flex btn-grp">
+    <a href="#"><button class="large" onclick="openModal('#manage-team');"><i class="fa fa-users"></i></button></a>
+    <a href="#"><button class="large" onclick="openModal('#manage-trash-cans');"><i class="fa fa-trash"></i></button></a>
+    <a href="#"><button class="large" onclick="openModal('#export-data');"><i class="fa fa-bar-chart"></i></button></a>
+</div>
 
 
 <div id="manage-team" class="modal-container">  

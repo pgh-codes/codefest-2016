@@ -3,6 +3,7 @@
 .clearfix {
     @include clearfix;
 }
+
 .pull-right {
     display: block;
     float: right;
@@ -11,6 +12,11 @@
 .pull-left {
     display: block;
     float: left;
+}
+
+.flex {
+    display: flex;
+    align-items: stretch;
 }
 
 .mobile-show {
