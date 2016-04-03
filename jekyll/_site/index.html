@@ -27,43 +27,76 @@
     <meta name="msapplication-TileImage" content="/assets/imgs/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     
-    <title>Codefest 2016 / Pgh Codes</title>
-    <meta name="description" content="Codefest 2016 / Pgh Codes">
+    <title>Trash Connect / Codefest 2016</title>
+    <meta name="description" content="Trash Connect / Codefest 2016">
     
     <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="Codefest 2016 / Pgh Codes / ">
-    <meta itemprop="description" content="Codefest 2016 / Pgh Codes">
+    <meta itemprop="name" content="Trash Connect / Codefest 2016 / ">
+    <meta itemprop="description" content="Trash Connect / Codefest 2016">
     <meta itemprop="image" content="/assets/imgs/social-sharing.jpg">
 
     <!-- Twitter Card data -->
-    <meta name="twitter:title" content="Codefest 2016 / Pgh Codes / ">
-    <meta name="twitter:description" content="Codefest 2016 / Pgh Codes">
+    <meta name="twitter:title" content="Trash Connect / Codefest 2016 / ">
+    <meta name="twitter:description" content="Trash Connect / Codefest 2016">
 
     <!-- Open Graph data -->
-    <meta property="og:site_name" content="Codefest 2016 / Pgh Codes" />
-    <meta property="og:title" content="Codefest 2016 / Pgh Codes / " />
-    <meta property="og:description" content="Codefest 2016 / Pgh Codes" />
+    <meta property="og:site_name" content="Trash Connect / Codefest 2016" />
+    <meta property="og:title" content="Trash Connect / Codefest 2016 / " />
+    <meta property="og:description" content="Trash Connect / Codefest 2016" />
     <meta property="og:url" content="/" />
     <meta property="og:image" content="/assets/imgs/social-sharing.jpg" />
-    <meta property="article:published_time" content=" 2016-03-31 21:24:17 -0400" />
+    <meta property="article:published_time" content=" 2016-04-02 23:34:49 -0400" />
     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 
 </head>
 
-  <body>
+  <body class="home">
+    <div class="wrapper">
+        <div class="content">
+            <img src="/assets/imgs/logo_color.svg" onerror="this.src='/assets/imgs/logo_color.png'; this.onerror=null;" class="logo">
 
-    nav here
+            <form class="login-form" id="login-form">
+                <label for="name">Name</label>
+                <select name="name" required>
+                  <option value="pdp staff">PDP Staff</option>
+                  <option value="dpw staff">DPW Staff</option>
+                  <option value="pdp admin">DPD Admin</option>
+                  <option value="dpw admin">DPW Staff</option>
+                </select>
 
-    <div>
-      <div>
-        content here
-      </div>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="*********" required>
+                
+                <label for="shift-end">What time does your shift end?</label>
+                <input type="time" name="shift-end" id="shift-end" required>
+                
+                <button type="submit" form="login-form" value="Submit" id="login-btn">Login <i class="fa fa-caret-right"></i></button>
+                
+                <script>
+                    //Need to add logic so that if you are an admin, then the change of pw prompts the submit; if you are a reg user, its the shift time change
+                    $(document).ready(function() {
+                        $('#login-btn').toggle();
+                        $('#shift-end').change(function(){
+                            $('#login-btn').slideToggle( 300, function() {
+                            });
+                        });
+                    });
+                </script>
+            </form>
+        </div>
+        
+        <div class="push"></div>
     </div>
-
-    footer here
+      
+    <footer>
+        &nbsp;
+    </footer>
 
   </body>
 

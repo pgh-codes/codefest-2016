@@ -6,9 +6,9 @@
 
 html {
     font-family: $primary-font-family;
+    font-weight: $primary-font-weight;
     color: $primary-font-color;
     font-size: 17px;
-    font-weight: 300;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -43,17 +43,17 @@ p.intro {
 
 
 h1 {
-    font-family: $primary-heading-font;
+    font-family: $primary-heading-font-family;
+    font-weight: $primary-heading-font-weight;
     font-size: em(40) !important;
     margin: 0 0 15px 0;
-    color: $drk-green;
+    color: $blue;
     word-spacing: 5px;
 }
     
 h2 {
-    font-family: $secondary-heading-font;
     line-height: 1.2;
-    color: $teal;
+    color: $drk-gray;
     font-size: em(25);
     margin: 30px 0 17px 0;
 }
@@ -70,16 +70,6 @@ h4 {
     margin: 1.25em 0 4px 0;
     text-decoration: underline;
     color: lighten($drk-gray, 5);
-}
-
-span.block-text {
-    font-family: 'bebasregular', Helvetica, Arial, sans-serif;
-    letter-spacing: .05em;
-    display: inline-block;
-    padding: 6px 6px 2px 6px;
-    background-color: $teal;
-    color: #fff;
-    margin: 0 5px 7px 0;
 }
 
 .sml-txt {

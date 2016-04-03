@@ -3,27 +3,20 @@
 -----------------------------------------------------*/
 
 // Typography
-$primary-font-family:  'Source Sans Pro', Georgia, Garamond, Times,"Times New Roman",serif !default;
+$primary-font-family: 'Raleway', Helvetica, Arial, sans-serif, !default;
+$primary-font-weight: 500;
 $primary-font-color: #404040;
-$primary-heading-font: 'bebasregular', Helvetica, Arial, sans-serif;
-$secondary-heading-font: aleolight, Helvetica, Arial, sans-serif;
-$nav-font: 'bebasregular', Helvetica, Arial, sans-serif;
+$primary-heading-font-family: 'Raleway', Helvetica, Arial, sans-serif, !default;
+$primary-heading-font-weight: 700;
+
 
 // Colors
-$drk-green:  #023c34;
-$lgt-green:  #a5d5a7;
-$teal:       #45bea7;
-$yellow:     #fbb03f;
-$drk-gray:   #4a4e4b;
-$lgt-gray:   #ededed;
-$bkg-color:  #ffffff;
+$navy:       #123456;
+$blue:       #1883c4;
+$green:      #a6ce39;
+$drk-gray:   #414042;
+$lgt-gray:   #939598;
+$bkg-color:  #f5f5f5;
 
-$primary-color:  $drk-green;
-$secondary-color: $teal;
-
-// Images
-$logo-path: url(../img/logo.svg);
-$hero-path: url(../img/hero-bkg.jpg);
-$about-photo-path-desktop: url(../img/about-photo-desktop.jpg);
-$about-photo-path-tablet: url(../img/about-photo-tablet.jpg);
-$about-photo-path-mobile: url(../img/about-photo-mobile.jpg);
+$primary-color:  $blue;
+$secondary-color: $green;

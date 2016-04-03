@@ -5,19 +5,6 @@ email: hello@pgh.codes
 url: "http://www.pgh.codes" # the base hostname & protocol for your site
 
 # Base SEO
-# Add the social stuff too
-
 seo:
-    title: Codefest 2016 / Pgh Codes 
-    description: "Codefest 2016 / Pgh Codes"
-    
-
-#-------------------------------
-# Navigation
-
-nav:
-- {name: About Us, url: '//'}
-- {name: Portfolio, url: '/portfolio/'}
-- {name: Web Design, url: '/web-design/'}
-- {name: Graphic Design, url: '/graphic-design/'}
-- {name: Contact, url: '/contact/'}
+    title: Trash Connect / Codefest 2016
+    description: "Trash Connect / Codefest 2016"
