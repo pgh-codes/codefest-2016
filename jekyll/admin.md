@@ -4,42 +4,49 @@ layout: default
 
 {% include map.html %}
 
-<div class="flex btn-grp">
-    <a href="#"><button class="large" onclick="openModal('#manage-team');"><i class="fa fa-users"></i></button></a>
-    <a href="#"><button class="large" onclick="openModal('#manage-trash-cans');"><i class="fa fa-trash"></i></button></a>
-    <a href="#"><button class="large" onclick="openModal('#export-data');"><i class="fa fa-bar-chart"></i></button></a>
+<div class="btn-group">
+
+    <a href="#"><button class="large manage-team-btn"><i class="fa fa-users"></i></button></a>
+    
+    <a href="#"><button class="large middle manage-trash-cans-btn"><i class="fa fa-trash"></i></button></a>
+    
+    <a href="#"><button class="large export-data-btn"><i class="fa fa-bar-chart"></i></button></a>
+    
 </div>
 
-
-<div id="manage-team" class="modal-container">  
-    <div class="modal-header">
-        <a href="#" class="modal-close close">×</a>
-        <h3><i class="fa fa-filter"></i> Filter Route</h3>
+<!-- Manage Teams -->
+<div id="manage-team" class="slide-container transition">
+    <div class="slide-header">
+        <a href="#" class="close">×</a>
+        <h3><i class="fa fa-users"></i> Manage Team</h3>
     </div>
 
-    <div class="modal-body">
-        <form id="create-route-form">
-            <label for="filter-bags">How many bags can be pick up?</label>
-            <input type="range" name="filter-bags" id="filter-bags" min="10" value="1" max="60" step="1" oninput="outputUpdate(value)" class="pull-left" required>
-            <output for="filter-bags" id="bags" class="pull-right">1 bag</output>
-            <div class="clearfix">&nbsp;</div>
-            
-            <label for="filter-time">How long should this route take?</label>
-            <input type="range" name="filter-time" id="filter-time" min="10" value="10" max="60" step="10" oninput="outputUpdate(value)" class="pull-left" required>
-            <output for="filter-time" id="minutes" class="pull-right">10 min.</output>
-            <div class="clearfix">&nbsp;</div>
-            
-            <script>
-                function outputUpdate(min) {
-                    document.querySelector('#minutes').value = min + ' min.';
-                }
-                
-                function outputUpdate(bags) {
-                    document.querySelector('#bags').value = bags + ' bags';
-                }
-            </script>
-            
-            <a href="#" class="modal-close"><button value="Go!" class="pull-right">Go!</button></a>
-        </form>
+    <div class="slide-body">
+        Manage Team   
+    </div>
+</div>
+
+<!--  Manage Cans -->
+<div id="manage-trash-cans" class="slide-container transition">
+    <div class="slide-header">
+        <a href="#" class="close">×</a>
+        <h3><i class="fa fa-trash"></i> Manage Trash Cans</h3>
+    </div>
+
+    <div class="slide-body">
+        Manage Trash Cans
     </div>    
 </div>
+
+<!-- Export Data -->
+<div id="export-data" class="slide-container transition">
+    <div class="slide-header">
+        <a href="#" class="close">×</a>
+        <h3><i class="fa fa-bar-chart"></i> Export Data</h3>
+    </div>
+
+    <div class="slide-body">
+        Export Data
+    </div>    
+</div>
+<script src="{{ site.url }}/assets/js/slideScreens.js"></script>

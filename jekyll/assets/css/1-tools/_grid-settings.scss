@@ -5,7 +5,7 @@
 $column: 45px;
 $gutter: 0px;
 $grid-columns: 3;
-$max-width: 960px;
+$max-width: 100%;
 
 // Define your breakpoints
 $tablet: new-breakpoint(max-width 830px 3);

@@ -1,0 +1,38 @@
+.slide-container {
+    background-color: white;
+    padding: 2em 1.5em 1.5em 1.5em;
+    width: 100%;
+    position: absolute;
+    top: 92%;
+    height: 92%;
+    overflow: hidden;
+    z-index: 999;
+    
+    a.close {
+        line-height: 1;
+        font-size: 1.5em;
+        position: absolute;
+        top: 3.5%;
+        right: 5%;
+        font-size: em(42);
+        text-decoration: none;
+        color: darken($green, 35%);
+
+        &:hover {
+            color: #000;
+            @include transition(color 1s ease);
+        }
+    }
+}
+
+.open-slide {
+    top: 8%;
+}
+
+.close-slide {
+    top: 92%;
+}
+
+.transition {
+    @include transition(top 0.3s ease-in);
+}

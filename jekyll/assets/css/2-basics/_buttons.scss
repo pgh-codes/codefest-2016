@@ -69,22 +69,30 @@
     position:absolute;
     bottom: 0;
     left: 0;
-    margin: 0;
-    border: none;
-    outline: none;
-    text-transform: uppercase;
     width: 100%;
-    background-color: darken($green, 10%);
-    @include border-top-radius(0);
-    @include border-right-radius(0);
-    @include border-bottom-radius(0);
-    @include border-left-radius(0);
-
-    &:hover {
-        background-color: darken($green, 25%);
-    }
+    z-index: 1002;
     
-    a {
+    #{$all-buttons} {
+        font-weight: 400 !important;
         @include span-columns(1);
+        margin: 0;
+        border: none;
+        outline: none;
+        text-transform: uppercase;
+        background-color: darken($green, 10%);
+        @include border-top-radius(0);
+        @include border-right-radius(0);
+        @include border-bottom-radius(0);
+        @include border-left-radius(0);
+        font-size: em(29);
+        
+        &:hover {
+            background-color: darken($green, 25%);
+        }
+        
+        &.middle {
+            border-right: 1px solid darken($green, 25%);
+            border-left: 1px solid darken($green, 25%);
+        }
     }
 }

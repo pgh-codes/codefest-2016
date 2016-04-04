@@ -45,7 +45,7 @@
     <meta property="og:description" content="Trash Connect / Codefest 2016" />
     <meta property="og:url" content="/admin.html" />
     <meta property="og:image" content="./assets/imgs/social-sharing.jpg" />
-    <meta property="article:published_time" content=" 2016-04-03 18:15:26 -0400" />
+    <meta property="article:published_time" content=" 2016-04-03 22:03:31 -0400" />
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -53,7 +53,6 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="./assets/js/modal.js"></script>
-
 </head>
 
   <body >
@@ -70,83 +69,112 @@
 
 <div id="map"></div>
 <script>
-  var map;
-  function initMap() {
-    var coordinates = {};
-    navigator.geolocation.getCurrentPosition(
-        function (pos) {
-            var crd = pos.coords;
-            starting_coordinates = {lat: crd.latitude, lng: crd.longitude}
+function initMap() {
+    var mapOpts = [
+      {
+        featureType: "administrative",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      },{
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      },{
+        featureType: "water",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      },{
+        featureType: "transit",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      }
+    ];
 
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: starting_coordinates,
-                zoom: 16	
-            });
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: { "lat":40.4405, "lng":-80.00015},
+        mapTypeId: 'nolabels',
+        disableDefaultUI: true
+    });
 
-            marker = new google.maps.Marker({
-                position: starting_coordinates,
-                map: map,
-                animation: google.maps.Animation.DROP,
-                title: 'We Have Found You'
-            });
-            marker.addListener('click', function () {
-                youAreHere = new google.maps.InfoWindow({content: marker.title});
-                youAreHere.open(map, marker);
-            });
-        },
-        function (err) {
-            alert('ERROR(' + err.code + '): ' + err.message);
-        },
-        {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        }
-    );
+    map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
 
+    $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
+      for(x=0;x<json.cans.length;x++) {
+        marker = new google.maps.Marker({
+          position: json.cans[x],
+          map: map,
+          title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type
+        });
+      }
+    });
+
+    // var marker = new google.maps.Marker({
+    //   position: { "lat":40.4405, "lng":-80.00015 },
+    //   map: map,
+    //   title: 'Hello World!'
+    // });
   }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap" async="" defer=""></script>
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
+</script>
 
-<div class="flex btn-grp">
-    <a href="#"><button class="large" onclick="openModal('#manage-team');"><i class="fa fa-users"></i></button></a>
-    <a href="#"><button class="large" onclick="openModal('#manage-trash-cans');"><i class="fa fa-trash"></i></button></a>
-    <a href="#"><button class="large" onclick="openModal('#export-data');"><i class="fa fa-bar-chart"></i></button></a>
+<div class="btn-group">
+
+    <a href="#"><button class="large manage-team-btn"><i class="fa fa-users"></i></button></a>
+    
+    <a href="#"><button class="large middle manage-trash-cans-btn"><i class="fa fa-trash"></i></button></a>
+    
+    <a href="#"><button class="large export-data-btn"><i class="fa fa-bar-chart"></i></button></a>
+    
 </div>
 
-<div id="manage-team" class="modal-container">  
-    <div class="modal-header">
-        <a href="#" class="modal-close close">×</a>
-        <h3><i class="fa fa-filter"></i> Filter Route</h3>
+<!-- Manage Teams -->
+<div id="manage-team" class="slide-container transition">
+    <div class="slide-header">
+        <a href="#" class="close">×</a>
+        <h3><i class="fa fa-users"></i> Manage Team</h3>
     </div>
 
-    <div class="modal-body">
-        <form id="create-route-form">
-            <label for="filter-bags">How many bags can be pick up?</label>
-            <input type="range" name="filter-bags" id="filter-bags" min="10" value="1" max="60" step="1" oninput="outputUpdate(value)" class="pull-left" required="" />
-            <output for="filter-bags" id="bags" class="pull-right">1 bag</output>
-            <div class="clearfix">&nbsp;</div>
-            
-            <label for="filter-time">How long should this route take?</label>
-            <input type="range" name="filter-time" id="filter-time" min="10" value="10" max="60" step="10" oninput="outputUpdate(value)" class="pull-left" required="" />
-            <output for="filter-time" id="minutes" class="pull-right">10 min.</output>
-            <div class="clearfix">&nbsp;</div>
-            
-            <script>
-                function outputUpdate(min) {
-                    document.querySelector('#minutes').value = min + ' min.';
-                }
-                
-                function outputUpdate(bags) {
-                    document.querySelector('#bags').value = bags + ' bags';
-                }
-            </script>
-            
-            <a href="#" class="modal-close"><button value="Go!" class="pull-right">Go!</button></a>
-        </form>
+    <div class="slide-body">
+        Manage Team   
+    </div>
+</div>
+
+<!--  Manage Cans -->
+<div id="manage-trash-cans" class="slide-container transition">
+    <div class="slide-header">
+        <a href="#" class="close">×</a>
+        <h3><i class="fa fa-trash"></i> Manage Trash Cans</h3>
+    </div>
+
+    <div class="slide-body">
+        Manage Trash Cans
     </div>    
 </div>
+
+<!-- Export Data -->
+<div id="export-data" class="slide-container transition">
+    <div class="slide-header">
+        <a href="#" class="close">×</a>
+        <h3><i class="fa fa-bar-chart"></i> Export Data</h3>
+    </div>
+
+    <div class="slide-body">
+        Export Data
+    </div>    
+</div>
+<script src="./assets/js/slideScreens.js"></script>
+
 
    
   </body>
