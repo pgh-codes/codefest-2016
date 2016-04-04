@@ -17,8 +17,9 @@ layout: default
 <!-- Manage Teams -->
 <div id="manage-team" class="slide-container transition">
     <div class="slide-header">
-        <a href="#" class="close">×</a>
-        <h3><i class="fa fa-users"></i> Manage Team</h3>
+        <h2 class="pull-left"><i class="fa fa-users"></i> Manage Team</h2>
+        <a href="#" class="close pull-right">×</a>
+        <div class="clearfix"></div>
     </div>
 
     <div class="slide-body">
@@ -29,8 +30,9 @@ layout: default
 <!--  Manage Cans -->
 <div id="manage-trash-cans" class="slide-container transition">
     <div class="slide-header">
-        <a href="#" class="close">×</a>
-        <h3><i class="fa fa-trash"></i> Manage Trash Cans</h3>
+        <h2 class="pull-left"><i class="fa fa-trash"></i> Manage Trash Cans</h2>
+        <a href="#" class="close pull-right">×</a>
+        <div class="clearfix"></div>
     </div>
 
     <div class="slide-body">
@@ -41,8 +43,9 @@ layout: default
 <!-- Export Data -->
 <div id="export-data" class="slide-container transition">
     <div class="slide-header">
-        <a href="#" class="close">×</a>
-        <h3><i class="fa fa-bar-chart"></i> Export Data</h3>
+        <h2 class="pull-left"><i class="fa fa-bar-chart"></i> Export Data</h2>
+        <a href="#" class="close pull-right">×</a>
+        <div class="clearfix"></div>
     </div>
 
     <div class="slide-body">

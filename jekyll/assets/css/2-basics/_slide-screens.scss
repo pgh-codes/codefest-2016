@@ -9,20 +9,26 @@
     z-index: 999;
     
     a.close {
-        line-height: 1;
+        line-height: .7em;
         font-size: 1.5em;
-        position: absolute;
-        top: 3.5%;
-        right: 5%;
         font-size: em(42);
         text-decoration: none;
-        color: darken($green, 35%);
+        color: $navy;
 
         &:hover {
-            color: #000;
+            color: darken($navy, 20%);
             @include transition(color 1s ease);
         }
     }
+    
+    .slide-header {
+        margin: 5px 0 10px 0;
+        
+        h2 {
+            margin-top: 1px;
+        }
+    }
+
 }
 
 .open-slide {
