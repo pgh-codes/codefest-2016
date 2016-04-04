@@ -10,33 +10,70 @@
     <div class="wrapper">
         <div class="login-wrap">
             <img src="{{ site.url }}/assets/imgs/logo_color.svg" onerror="this.src='{{ site.url }}/assets/imgs/logo_color.png'; this.onerror=null;" class="logo">
+				<style>
+					.shift-end-stuff {
+						display: none;
+					}
+				</style>
 
             <form class="login-form" id="login-form">
                 <label for="name">Name</label>
-                <select name="name" required>
-                  <option value="pdp staff">PDP Staff</option>
-                  <option value="dpw staff">DPW Staff</option>
-                  <option value="pdp admin">DPD Admin</option>
-                  <option value="dpw admin">DPW Staff</option>
+                <select class="required-field" id="user_id" name="user_id">
+					<option value="0">Please Select Your Name</option>
                 </select>
 
-
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="*********" required>
+                <input class="required-field" type="password" name="password" placeholder="*********">
                 
-                <label for="shift-end">What time does your shift end?</label>
-                <input type="time" name="shift-end" id="shift-end" required>
+                <label class="shift-end-stuff" for="shift-end">What time does your shift end?</label>
+                <input type="time" class="shift-end-stuff" name="shift-end" id="shift-end">
                 
-                <button type="submit" value="Submit" id="login-btn">Login <i class="fa fa-caret-right"></i></button>
+                <button type="submit" value="Submit" id="login-btn" style="display: none">Login <i class="fa fa-caret-right"></i></button>
                 
                 <script>
                     //Need to add logic so that if you are an admin, then the change of pw prompts the submit; if you are a reg user, its the shift time change
                     $(document).ready(function() {
-                        $('#login-btn').toggle();
-                        $('#shift-end').change(function(){
-                            $('#login-btn').slideToggle( 300, function() {
-                            });
-                        });
+						//populate user select list
+						$.get(
+							"http://2016.pgh.codes/api/users.php",
+							{},
+							function(response) {
+								$.each(response.users, function(index, user) {
+									$('#user_id').append(
+										$('<option>', { value: user.userid, label: user.username, text: user.username, class: 'user-type-' + user.type })
+									);
+								});
+							},
+							"json"
+						);
+						
+						//When selecting a user, check if shift-end is necessary
+						$('#user_id').change(function() {
+							var selected_index = $(this).prop('selectedIndex');
+							var selected_option = $(this)[0][selected_index];
+							if($(selected_option).hasClass('user-type-4')) {
+								$('#shift-end').addClass('required-field');
+								$('.shift-end-stuff').fadeIn('fast');
+							} else {
+								$('#shift-end').removeClass('required-field');
+								$('.shift-end-stuff').fadeOut('fast');
+							}
+						});
+						
+						//When user enters data in a field, check all fields for data
+						//When all have data, show login button
+						$('.required-field').change(function() {
+							var reveal_button = true;
+							$('.required-field').each(function(field) {
+								if(!$(this).val()) {
+									reveal_button = false;
+								}
+							});
+							if(reveal_button) {
+								$('#login-btn').slideToggle(300);
+							}
+						});
+						
                     });
                 </script>
             </form>
