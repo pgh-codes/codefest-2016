@@ -131,7 +131,7 @@
 						$('#login-btn').click(function(event) {
 							event.preventDefault();
 							
-							var body = { userid: $('#user_id').val(), password: $('#password').val() };
+							var body = "{ \"userid\": " + $('#user_id').val() + ", \"password\": \"" + $('#password').val() + "\" }";
 							console.log(body);
 							$.post(
 								"http://2016.pgh.codes/api/auth/login.php",
