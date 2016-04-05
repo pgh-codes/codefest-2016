@@ -15,22 +15,16 @@ layout: default
     <div class="modal-body">
         <form id="create-route-form">
             <label for="filter-bags">How many bags can be pick up?</label>
-            <input type="range" name="filter-bags" id="filter-bags" min="10" value="1" max="60" step="1" oninput="outputUpdate(value)" class="pull-left" required>
-            <output for="filter-bags" id="bags" class="pull-right">1 bag</output>
-            <div class="clearfix">&nbsp;</div>
-            
+            <input type="range" name="filter-bags" id="filter-bags" oninput="outputUpdate(value, '#bags', ' bags')" min="5" value="5" max="60" step="1" class="pull-left">
+            <output for="filter-bags" id="bags" class="pull-right">5 bags</output>
+            <br><br>
             <label for="filter-time">How long should this route take?</label>
-            <input type="range" name="filter-time" id="filter-time" min="10" value="10" max="60" step="10" oninput="outputUpdate(value)" class="pull-left" required>
-            <output for="filter-time" id="minutes" class="pull-right">10 min.</output>
-            <div class="clearfix">&nbsp;</div>
+            <input type="range" name="filter-time" id="filter-time" oninput="outputUpdate(value, '#minutes', ' mins.')" min="10" value="10" max="60" step="10"  class="pull-left">
+            <output for="filter-time" id="minutes" class="pull-right">10 mins.</output>
             
             <script>
-                function outputUpdate(min) {
-                    document.querySelector('#minutes').value = min + ' min.';
-                }
-                
-                function outputUpdate(bags) {
-                    document.querySelector('#bags').value = bags + ' bags';
+                function outputUpdate(value, id, suffix) {
+                  document.querySelector(id).value = value + suffix;
                 }
             </script>
             
