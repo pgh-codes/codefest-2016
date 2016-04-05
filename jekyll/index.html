@@ -6,15 +6,15 @@
 
   {% include head.html %}
 
-  <body class="home">
+<body class="home">
     <div class="wrapper">
         <div class="login-wrap">
             <img src="{{ site.url }}/assets/imgs/logo_color.svg" onerror="this.src='{{ site.url }}/assets/imgs/logo_color.png'; this.onerror=null;" class="logo">
-				<style>
-					.shift-end-stuff {
-						display: none;
-					}
-				</style>
+			<style>
+				.shift-end-stuff {
+					display: none;
+				}
+			</style>
 
             <form class="login-form" id="login-form">
                 <label for="name">Name</label>
@@ -23,12 +23,12 @@
                 </select>
 
                 <label for="password">Password</label>
-                <input class="required-field" type="password" name="password" placeholder="*********">
+                <input class="required-field" type="password" name="password" id="password" placeholder="*********">
                 
                 <label class="shift-end-stuff" for="shift-end">What time does your shift end?</label>
                 <input type="time" class="shift-end-stuff" name="shift-end" id="shift-end">
                 
-                <button type="submit" value="Submit" id="login-btn" style="display: none">Login <i class="fa fa-caret-right"></i></button>
+                <button id="login-btn" style="display: none">Login <i class="fa fa-caret-right"></i></button>
                 
                 <script>
                     //Need to add logic so that if you are an admin, then the change of pw prompts the submit; if you are a reg user, its the shift time change
@@ -59,21 +59,53 @@
 								$('.shift-end-stuff').fadeOut('fast');
 							}
 						});
-						
-						//When user enters data in a field, check all fields for data
-						//When all have data, show login button
-						$('.required-field').change(function() {
+						var check_for_login = function() {
 							var reveal_button = true;
-							$('.required-field').each(function(field) {
-								if(!$(this).val()) {
+							$('.required-field').each(function(index, field) {
+								if(!$(field).val()) {
 									reveal_button = false;
 								}
 							});
 							if(reveal_button) {
-								$('#login-btn').slideToggle(300);
+								$('#login-btn').slideDown(300);
+							} else {
+								$('#login-btn').slideUp(300);
 							}
-						});
+						}
 						
+						//When user enters data in a field, check all fields for data
+						//When all have data, show login button
+						$('.required-field').change(check_for_login);
+						$('.required-field').keypress(check_for_login);
+						
+						//make an API call to validate the login
+						$('#login-btn').click(function(event) {
+							event.preventDefault();
+							
+							var body = "{ \"userid\": " + $('#user_id').val() + ", \"password\": \"" + $('#password').val() + "\" }";
+							console.log(body);
+							$.post(
+								"http://2016.pgh.codes/api/auth/login.php",
+								body,
+								function(response) {
+									console.log(response);
+									if(response.success) {
+										var selected_index = $('#user_id').prop('selectedIndex');
+										var selected_option = $('#user_id')[0][selected_index];
+										if($(selected_option).hasClass('user-type-3')) {
+											location.href = "pdp-staff.html";
+										} else if($(selected_option).hasClass('user-type-4')) {
+											location.href = "dpw-staff.html";
+										} else {
+											location.href = "admin.html";
+										}
+									} else {
+										alert('Bad Password');
+									}
+								},
+								"json"
+							).fail(function(jqXHR, textStatus, errorThrown) { console.log(jqXHR); console.log(textStatus); console.log(errorThrown); });
+						});
                     });
                 </script>
             </form>
