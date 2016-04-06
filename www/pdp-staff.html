@@ -57,7 +57,7 @@
   <body>
     <header class="clearfix">
    <img src="./assets/imgs/logo_white.svg" onerror="this.src='./assets/imgs/logo_white.png'; this.onerror=null;" class="logo pull-left">
-    <button class="pull-right">LOGOUT</button>
+    <button id="logout-btn" class="pull-right">LOGOUT</button>
 </header>
 
     <div id="getting-started" class="modal-container">  
@@ -176,6 +176,18 @@ function initMap() {
 			"json"
 		);
 	}
+	$(document).ready(function() {
+		$('#logout-btn').click(function() {
+			$.get(
+				"http://2016.pgh.codes/api/auth/logout.php",
+				{ },
+				function(response) {
+					location.href = "index.html";
+				},
+				"json"
+			);
+		});
+	});
 </script>
 
 <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
