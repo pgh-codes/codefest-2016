@@ -63,9 +63,12 @@ $(document).ready(function() {
 						location.href = "pdp-staff.html";
 					} else if($(selected_option).hasClass('user-type-4')) {
 						location.href = "dpw-staff.html";
-					} else {
-						location.href = "admin.html";
+					} else if($(selected_option).hasClass('user-type-1')) {
+						location.href = "pdp-admin.html";
+					} else if($(selected_option).hasClass('user-type-2')) {
+						location.href = "dpw-admin.html";
 					}
+                    
 				} else {
 					alert('Bad Password');
 				}
