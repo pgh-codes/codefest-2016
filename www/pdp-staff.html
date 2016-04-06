@@ -123,6 +123,7 @@ function initMap() {
         var marker = new google.maps.Marker({
           position: json.cans[x],
           map: map,
+          icon: { path: google.maps.SymbolPath.CIRCLE, scale: 3, strokeWeight: 1, fillOpacity: 1, fillColor: "grey" },
           title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type,
         });
 		marker.canId = json.cans[x].id;
