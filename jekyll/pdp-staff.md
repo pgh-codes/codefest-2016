@@ -1,6 +1,6 @@
 ---
 layout: default
-start-modal: onload="openModal('#trash-can-info');"
+start-modal: onload="openModal('#getting-started');"
 ---
 
 
