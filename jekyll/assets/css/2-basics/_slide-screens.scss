@@ -4,8 +4,8 @@
     width: 100%;
     position: absolute;
     top: 92%;
-    height: 92%;
-    overflow: hidden;
+    height: 80%;
+    overflow: scroll;
     z-index: 999;
     
     a.close {
@@ -23,9 +23,33 @@
     
     .slide-header {
         margin: 5px 0 10px 0;
-        
+
         h2 {
-            margin-top: 1px;
+            margin: 1px 0 7px 0;
+        }
+    }
+    
+    .slide-body {
+        border-top: 1px solid #aaa;
+        margin: 0 0 1.5em 0;
+        padding-top: 20px;
+        font-size: em(17);
+        line-height: em(26);
+        
+        > h1 {
+            margin-top: 0;
+        }
+        
+        > h2 {
+            margin-top: 0;
+        }
+        
+        > h3 {
+            margin-top: 0;
+        }
+        
+        > h4 {
+            margin-top: 0;
         }
     }
 

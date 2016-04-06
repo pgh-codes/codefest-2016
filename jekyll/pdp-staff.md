@@ -36,9 +36,6 @@ start-modal: onload="openModal('#getting-started');"
                 <span class="can-types">
                 <i class="fa fa-certificate on"></i>
                 <i class="fa fa-recycle"></i>
-                <i class="fa fa-fire on"></i>
-                <i class="fa fa-trash gray"><span class="sml-txt">G</span></i>
-                <i class="fa fa-trash black on"><span class="sml-txt">B</span></i>
                 </span>
             </li>
             <li><i class="fa fa-comment"></i> Recent Comments

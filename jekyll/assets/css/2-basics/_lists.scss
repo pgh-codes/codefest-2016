@@ -24,3 +24,33 @@ ul.list-icon-group {
         }
     }
 }
+
+ul.list-names {
+    margin: -1em 0 1em 0;
+    padding: 0;
+    line-height: 1em;
+
+    li {
+        display: block;
+        margin: 0;
+        border-bottom: 1px solid #EAEAEA;
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 1.25em;
+        }
+
+        .fa-lg {
+            line-height: .5em;
+            margin-left: 12px;
+        }
+    }
+}
