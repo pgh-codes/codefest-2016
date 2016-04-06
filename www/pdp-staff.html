@@ -216,14 +216,15 @@ function initMap() {
 <div id="trash-can-info" class="modal-container">
     <div class="modal-header">
         <a href="#" class="modal-close close">×</a>
-        <h3><i class="fa fa-map-marker"></i> Details</h3>
+        <h3><i class="fa fa-trash"></i> Details</h3>
     </div>
 
     <div class="modal-body">
         <ul class="list-icon-group">
+            <li><i class="fa fa-map-marker"></i> Human-readable location here</li>
             <li><i class="fa fa-clock-o"></i> Last Pickup: <span id="last-pickup"></span></li>
             <li><i class="fa fa-info-circle"></i> 
-                Features:&nbsp;&nbsp;
+                Can Type:&nbsp;&nbsp;
                 <span class="can-types">
                 <i class="fa fa-certificate"></i>
                 <i class="fa fa-recycle"></i>
@@ -242,7 +243,7 @@ function initMap() {
 			<input type="hidden" id="can-id" value="" />
             <input type="number" id="bag-number" placeholder="# of Bags">
             <textarea id="comments" style="resize: none;" placeholder="Comments? (Optional)"></textarea>
-            <button id="start-event" value="Create" class="pull-right">Create</button>
+            <button id="start-event" value="Create" class="pull-right">Create Request</button>
 		</form>	
     </div>
 </div>

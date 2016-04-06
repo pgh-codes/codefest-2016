@@ -15,7 +15,7 @@ function openModal(modalId) {
     
     $.fn.center = function () {
         this.css("position", "absolute");
-        this.css("top", ($(window).height() - this.height()) / 2 + "px");
+        this.css("top", ($(window).height() - this.height()) / 55 + "%");
         this.css("left", ($(window).width() - this.width()) / 2 + "px");
         return this;
     };
