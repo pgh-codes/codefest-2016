@@ -3944,8 +3944,9 @@ ul.list-icon-group li i.fa {
     min-width: 1.1em
 }
 
-ul.list-icon-group li ul.recent-comments {
-    margin: 10px 0 0 0;
+ul.list-icon-group li ul#recent-notes {
+    display: inline-block;
+    margin: 0;
     padding-left: 1.75em;
     list-style-type: none;
     font-size: .8125em;
@@ -3953,8 +3954,12 @@ ul.list-icon-group li ul.recent-comments {
     color: #5b595c
 }
 
-ul.list-icon-group li ul.recent-comments li {
+ul.list-icon-group li ul#recent-notes li {
     margin: 0 0 10px 0
+}
+
+ul.list-icon-group li ul#recent-notes li .fa-comment {
+    vertical-align: top;
 }
 
 ul.list-names {

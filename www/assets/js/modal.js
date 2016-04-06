@@ -24,4 +24,7 @@ function openModal(modalId) {
     $(window).resize(function () {
         $(".modal-container").center();
     });
+    
+    
 }
+
