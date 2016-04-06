@@ -143,7 +143,8 @@ function initMap() {
 			
 				//populate the modal
 				$('#last-pickup').html(can.lastPickup);
-			
+				$('#approx-location').html(can.approxLocation);
+				
 				$('#recent-notes').html("");
 				$.each(can.recentNotes, function(index, note) {
 					$('#recent-notes').append(
@@ -222,7 +223,7 @@ function initMap() {
 
     <div class="modal-body">
         <ul class="list-icon-group">
-            <li><i class="fa fa-map-marker"></i> Human-readable location here</li>
+            <li><i class="fa fa-map-marker"></i> <span id="approx-location">&nbsp;</span></li>
             <li><i class="fa fa-clock-o"></i> Last Pickup: <span id="last-pickup"></span></li>
             <li><i class="fa fa-info-circle"></i> 
                 Can Type:&nbsp;&nbsp;
