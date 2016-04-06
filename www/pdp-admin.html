@@ -158,8 +158,6 @@ function initMap() {
             <li><a href="#">Matthew Cipperly</a></li>
             <li><a href="#">Robert Collini</a></li>
         </ul>
-
-        View Team Directory (View team member stats (avg, cycle times, avg. bags emptied per shift), delete members, update members)
     </div>
 </div>
 
@@ -178,8 +176,8 @@ function initMap() {
             <li><i class="fa fa-trash"></i> Avg. Cans Emptied Per Shift: <span class="highlight">###</span></li>
         </ul>
 
-        <a href="#" class="pull-right"><button class="warning"><i class="fa fa-times"></i> Delete</button></a><a href="#" class="pull-right edit-member-btn"><button><i class="fa fa-pencil-square-o"></i> Edit</button></a> 
-
+        <a href="#" class="pull-right edit-member-btn"><button><i class="fa fa-pencil-square-o"></i> Edit</button></a> 
+        <div class="clearfix">&nbsp;</div>
     </div>
 </div>
 
@@ -196,11 +194,14 @@ function initMap() {
             
             <form>
                 <label for="name">Update Name</label>
-                <input class="required-field" type="text" name="name" id="password" placeholder="John Doe" />
-                <br /><br />
-                <a href="#"><button name="reset" class="secondary">Reset Password</button></a>
-                <br /><br />
+                <input class="required-field full-width" type="text" name="name" id="name" placeholder="John Doe" />
+
+                <label for="reset">Lost Password?</label>
+                <a href="#"><button name="reset" class="secondary full-width">Reset Password</button></a>
+                
+                <div class="clearfix">&nbsp;</div>
                 <a href="#" class="pull-right"><button class="warning"><i class="fa fa-times"></i> Delete</button></a><a href="#" class="pull-right"><button><i class="fa fa-check"></i> Submit</button></a>
+                <div class="clearfix">&nbsp;</div>
             </form>
     </div>
 </div>
@@ -214,10 +215,26 @@ function initMap() {
     </div>
 
     <div class="slide-body">
-    Add a New Team Member (Add name and agency info (PDP or DPW)
+        <form>
+            <label for="name">New Team Member Name</label>
+            <input class="required-field full-width" type="text" name="name" id="first-name" placeholder="First" />
+            <input class="required-field full-width" type="text" name="name" id="last-name" placeholder="Last" />
+            
+            <label for="name">User Type</label>
+            <select class="full-width">
+                <option value="pdp-staff">PDP Staff</option>
+                <option value="pdp-admin">PDP Admin</option>
+            </select>
+            <div class="clearfix">&nbsp;</div>
+            <a href="#" class="pull-right"><button><i class="fa fa-plus"></i> Add</button></a>
+            <div class="clearfix">&nbsp;</div>
+        </form>
+            
+    
     </div>    
 </div>
 
+      
 <!-- Export Data -->
 <div id="export-data" class="slide-container transition">
     <div class="slide-header">
@@ -227,8 +244,23 @@ function initMap() {
     </div>
 
     <div class="slide-body">
-        Export the stat info above into a .CSV file.<br />
-Additional sorting by fields (can type, date/date range)
+        <form>
+            <label for="name">Where should this data be sent?</label>
+            <input class="required-field full-width" type="email" name="email" id="email" placeholder="email@website.com" />
+
+            <label for="export">Export Options</label>
+            - export all data<br>
+            <h3>or filter by:</h3>
+            - can type<br>
+            - date range<br>
+            - team member<br>
+            - shifts (DPW only)<br>
+
+            
+            <div class="clearfix">&nbsp;</div>
+            <a href="#" class="pull-right"><button><i class="fa fa-check"></i> Submit</button></a>
+            <div class="clearfix">&nbsp;</div>
+        </form>
     </div>    
 </div>
 <script src="./assets/js/slideScreens.js"></script>
