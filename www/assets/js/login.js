@@ -50,11 +50,12 @@ $(document).ready(function() {
 		event.preventDefault();
 	
 		var body = { userid: $('#user_id').val(), password: $('#password').val() };
+		console.log(body);
 		$.post(
 			"http://2016.pgh.codes/api/auth/login.php",
 			JSON.stringify(body),
 			function(response) {
-				console.log(response);
+				
 				if(response.success) {
 					var selected_index = $('#user_id').prop('selectedIndex');
 					var selected_option = $('#user_id')[0][selected_index];
@@ -70,6 +71,6 @@ $(document).ready(function() {
 				}
 			},
 			"json"
-		).fail(function(jqXHR, textStatus, errorThrown) { console.log(jqXHR); console.log(textStatus); console.log(errorThrown); });
+		);
 	});
 });

@@ -134,7 +134,6 @@ function initMap() {
     });
   }
 	function displayCanModal(canId) {
-		console.log(canId);
 		$.get(
 			"http://2016.pgh.codes/api/cans.php?",
 			{ canId: canId },
@@ -150,6 +149,8 @@ function initMap() {
 						'<li>' + note + '</li>'
 					);
 				});
+			
+				$('#can-id').val(canId);
 			
 				$('.on').removeClass('on');
 				switch(can.type) {
@@ -187,6 +188,25 @@ function initMap() {
 				"json"
 			);
 		});
+		$('#start-event').click(function(event) {
+			event.preventDefault();
+			var body = { canId: $('#can-id').val(), bags: $('#bag-number').val(), note: $('#comments').val() };
+			console.log(JSON.stringify(body));
+			$.post(
+				"http://2016.pgh.codes/api/event/new.php",
+				JSON.stringify(body),
+				function(response) {
+					console.log(response);
+					if(response.success == "true") {
+						alert('Pickup Scheduled!');
+					}
+					else {
+						alert("Please make sure you've set the correct number of bags.");
+					}
+				},
+				"json"
+			);
+		});
 	});
 </script>
 
@@ -205,15 +225,12 @@ function initMap() {
             <li><i class="fa fa-info-circle"></i> 
                 Features:&nbsp;&nbsp;
                 <span class="can-types">
-                <i class="fa fa-certificate on"></i>
+                <i class="fa fa-certificate"></i>
                 <i class="fa fa-recycle"></i>
                 </span>
             </li>
             <li><i class="fa fa-comment"></i> Recent Comments
                 <ul id="recent-notes" class="recent-comments">
-                    <li>Comment here <span class="sml-txt">(Apr 1, 2016)</span></li>
-                    <li>Comment here <span class="sml-txt">(Mar 11, 2016)</span></li>
-                    <li>Comment here <span class="sml-txt">(Dec 20, 2015)</span></li>
                 </ul>
             </li>
         </ul>
@@ -221,12 +238,12 @@ function initMap() {
         <hr>
 
         <h3>New Pickup Request</h3>
-        <form id="new-pickup-form">
-            <input type="number" name="bag-number" id="bag-number" placeholder="# of Bags" required>
-            <textarea name="comments" id="comments" placeholder="Comments? (Optional)"></textarea>
-            <button type="submit" form="new-pickup-form" value="Create" class="pull-right">Create</button>
-        </form>
-
+		<form id="new-pickup-form">
+			<input type="hidden" id="can-id" value="" />
+            <input type="number" id="bag-number" placeholder="# of Bags">
+            <textarea id="comments" style="resize: none;" placeholder="Comments? (Optional)"></textarea>
+            <button id="start-event" value="Create" class="pull-right">Create</button>
+		</form>	
     </div>
 </div>
 
