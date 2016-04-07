@@ -69,6 +69,18 @@
 
 <div id="map"></div>
 <script>
+	$(document).ready(function() {
+		$('#logout-btn').click(function() {
+			$.get(
+				"http://2016.pgh.codes/api/auth/logout.php",
+				{ },
+				function(response) {
+					location.href = "index.html";
+				},
+				"json"
+			);
+		});
+	});
 function initMap() {
     var mapOpts = [
       {
