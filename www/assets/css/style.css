@@ -938,7 +938,7 @@ ul.list-icon-group li i.fa {
 ul.list-icon-group li ul#recent-notes {
     display: inline-block;
     margin: 0;
-    padding-left: 1.75em;
+    padding-left: 0;
     list-style-type: none;
     font-size: .8125em;
     font-style: italic;
@@ -949,7 +949,12 @@ ul.list-icon-group li ul#recent-notes li {
     margin: 0 0 10px 0
 }
 
-ul.list-icon-group li ul#recent-notes li .fa-comment {
+ul.list-icon-group li ul#recent-notes li:last-of-type {
+    margin: 0 0 0 0;
+}
+
+
+ul.list-icon-group li i.fa-comment {
     vertical-align: top;
 }
 
