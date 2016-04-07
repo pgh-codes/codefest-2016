@@ -51,6 +51,7 @@
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="./assets/js/modal.js"></script>
 </head>
 
@@ -147,18 +148,21 @@ function initMap() {
 <div id="filter-route" class="modal-container">  
     <div class="modal-header">
         <a href="#" class="modal-close close">×</a>
-        <h3><i class="fa fa-filter"></i> Filter Route</h3>
+        <h3><i class="fa fa-filter"></i> Create Route</h3>
     </div>
 
     <div class="modal-body">
         <form id="create-route-form">
-            <label for="filter-bags">How many bags can be pick up?</label>
+            <label for="filter-bags">Filter by Bag Count</label>
             <input type="range" name="filter-bags" id="filter-bags" oninput="outputUpdate(value, '#bags', ' bags')" min="5" value="5" max="60" step="1" class="pull-left" />
             <output for="filter-bags" id="bags" class="pull-right">5 bags</output>
-            <br /><br />
-            <label for="filter-time">How long should this route take?</label>
-            <input type="range" name="filter-time" id="filter-time" oninput="outputUpdate(value, '#minutes', ' mins.')" min="10" value="10" max="60" step="10" class="pull-left" />
-            <output for="filter-time" id="minutes" class="pull-right">10 mins.</output>
+            
+            <div class="clearfix"></div>
+            <p class="sep"><span>or</span></p>
+            
+            <label for="filter-time"> Filter by Route Length</label>
+            <input type="range" name="filter-time" id="filter-time" oninput="outputUpdate(value, '#hours', ' hours')" min="1" value="1" max="12" step="1" class="pull-left" />
+            <output for="filter-time" id="hours" class="pull-right">1 hour</output>
             
             <script>
                 function outputUpdate(value, id, suffix) {
@@ -166,7 +170,13 @@ function initMap() {
                 }
             </script>
             
-            <a href="#" class="modal-close"><button value="Go!" class="pull-right">Go!</button></a>
+            <div class="clearfix"></div>
+            <p class="sep"><span>or</span></p>
+            
+            <a href="#"><button value="Auto Route" class="full-width alt-color">Auto Route</button></a>
+            
+            <hr>
+            <a href="#"><button value="Go!" class="pull-right full-width large">Create Route</button></a>
         </form>
     </div>    
 </div>

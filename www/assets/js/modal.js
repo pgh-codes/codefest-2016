@@ -11,20 +11,11 @@ function openModal(modalId) {
             $(".modal-overlay").remove();
         });
     });
-
     
-    $.fn.center = function () {
-        this.css("position", "absolute");
-        this.css("top", ($(window).height() - this.height()) / 55 + "%");
-        this.css("left", ($(window).width() - this.width()) / 2 + "px");
-        return this;
-    };
-    
-    $(".modal-container").center();
-    $(window).resize(function () {
-        $(".modal-container").center();
-    });
-    
-    
+    $(modalId).position({
+      my: "center",
+      at: "center",
+      of: ".modal-overlay"
+    }); 
 }
 
