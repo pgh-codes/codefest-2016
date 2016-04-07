@@ -55,13 +55,13 @@
     <script src="./assets/js/modal.js"></script>
 </head>
 
-  <body>
+  <body onload="openModal('#getting-started');">
     <header class="clearfix">
    <img src="./assets/imgs/logo_white.svg" onerror="this.src='./assets/imgs/logo_white.png'; this.onerror=null;" class="logo pull-left">
     <button id="logout-btn" class="pull-right">LOGOUT</button>
 </header>
 
-    <div id="getting-started" class="modal-container">  
+<div id="getting-started" class="modal-container">  
     <div class="modal-header">
         <a href="#" class="modal-close close">×</a>
         <h3><i class="fa fa-home"></i> Getting Started</h3>
