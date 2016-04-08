@@ -62,32 +62,18 @@
     <button class="pull-right" id="logout-btn">LOGOUT</button>
 </header>
 
+<!-- MAP START -->
 <style type="text/css">
-    #map { 
-        height: 100%; 
+    #map {
+        height: 100%;
     }
 </style>
 
 <div id="map"></div>
 <script>
-	$(document).ready(function() {
-		$('#logout-btn').click(function(event) {
-			$.get(
-				"http://2016.pgh.codes/api/event/release.php",
-				{ },
-				function (releaseResponse) { 
-					$.get(
-						"http://2016.pgh.codes/api/auth/logout.php",
-						{ },
-						function(logoutResponse) {},
-						"json"
-					);
-				},
-				"json"
-			);
-			window.href = "index.html";
-		});
-	});
+var markers = [];
+var map;
+
 function initMap() {
     var mapOpts = [
       {
@@ -117,7 +103,7 @@ function initMap() {
       }
     ];
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: { "lat":40.4405, "lng":-80.00015},
         mapTypeId: 'nolabels',
@@ -125,28 +111,122 @@ function initMap() {
     });
 
     map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
+    redrawMarkers();
+  }
+  function redrawMarkers() {
 
     $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
-      for(x=0;x<json.cans.length;x++) {
-        marker = new google.maps.Marker({
-          position: json.cans[x],
-          map: map,
-          title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type
-        });
-      }
+        oldMarkers = markers;
+        newMarkers = [];
+        for (index in json.cans) doAddMarker(json.cans[index]);
+        function doAddMarker(_data) {
+            var marker = new google.maps.Marker({
+              position: { lat: _data.lat, lng: _data.lng },
+              map: map,
+              icon: { path: google.maps.SymbolPath.CIRCLE, scale: 3, strokeWeight: 1, fillOpacity: 1, fillColor: _data.color },
+              title: "Can ID: " + _data.id + ", Type: " + _data.type,
+            });
+            marker.canId = _data.id;
+            marker.addListener('click', function() {
+                displayCanModal(this.canId);
+            });
+            newMarkers.push(marker);
+        }
+        markers = newMarkers;
+        setTimeout(removeMarkers, 500, oldMarkers);
+        newMarkers = null;
     });
-
-    // var marker = new google.maps.Marker({
-    //   position: { "lat":40.4405, "lng":-80.00015 },
-    //   map: map,
-    //   title: 'Hello World!'
-    // });
   }
+
+  function removeMarkers(markerArr) {
+    for (var i=0;i<markerArr.length;i++) {
+        markerArr[i].setMap(null);
+    }
+  }
+
+        function displayCanModal(canId) {
+                $.get(
+                        "http://2016.pgh.codes/api/cans.php?",
+                        { canId: canId },
+                        function(response) {
+                                can = response.cans[0];
+
+                                //populate the modal
+                                $('#last-pickup').html(can.lastPickup);
+                                $('#approx-location').html(can.approxLocation);
+
+                                $('#recent-notes').html("");
+                                $.each(can.recentNotes, function(index, note) {
+                                        $('#recent-notes').append(
+                                                '<li>' + note + '</li>'
+                                        );
+                                });
+
+                                $('#can-id').val(canId);
+
+                                $('.on').removeClass('on');
+                                switch(can.type) {
+                                        case 1:
+                                                $('.fa-trash.gray').addClass('on');
+                                                break;
+                                        case 2:
+                                                $('.fa-trash.black').addClass('on');
+                                                break;
+                                        case 3:
+                                                $('.fa-fire').addClass('on');
+                                                break;
+                                        case 4:
+                                                $('.fa-recycle').addClass('on');
+                                                break;
+                                        case 5:
+                                                $('.fa-certificate').addClass('on');
+                                                break;
+                                }
+
+                                //Do the thing that makes the modal appear
+                                openModal('#trash-can-info');
+                        },
+                        "json"
+                );
+        }
+        $(document).ready(function() {
+                $('#logout-btn').click(function() {
+                        $.get(
+                                "http://2016.pgh.codes/api/auth/logout.php",
+                                { },
+                                function(response) {
+                                        location.href = "index.html";
+                                },
+                                "json"
+                        );
+                });
+                $('#start-event').click(function(event) {
+                        event.preventDefault();
+                        var body = { canId: $('#can-id').val(), bags: $('#bag-number').val(), note: $('#comments').val() };
+                        console.log(JSON.stringify(body));
+                        $.post(
+                                "http://2016.pgh.codes/api/event/new.php",
+                                JSON.stringify(body),
+                                function(response) {
+                                        console.log(response);
+                                        if(response.success == "true") {
+                                                alert('Pickup Scheduled!');
+                                        }
+                                        else {
+                                                alert("Please make sure you've set the correct number of bags.");
+                                        }
+                                },
+                                "json"
+                        );
+                });
+        });
+
+var refreshCanInterval = setInterval(redrawMarkers, 30000);
 </script>
 
-    <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
-    </script>
-
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
+</script>
+<!-- MAP END -->
 
     <p><button class="large overlay" onclick="openModal('#create-route');">Create Route</button></p>
 
