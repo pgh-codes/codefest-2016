@@ -266,9 +266,9 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
         <h3>New Pickup Request</h3>
                 <form id="new-pickup-form">
                         <input type="hidden" id="can-id" value="" />
-            <input type="number" id="bag-number" placeholder="# of Bags">
+            <input type="number" id="bag-number" placeholder="# of Bags" min="1" value="1" step="1">
             <textarea id="comments" style="resize: none;" placeholder="Comments? (Optional)"></textarea>
-            <button id="start-event" value="Create" class="pull-right">Create Request</button>
+            <button id="start-event" value="Create" class="pull-right modal-close">Create Request</button>
                 </form>
     </div>
 </div>
