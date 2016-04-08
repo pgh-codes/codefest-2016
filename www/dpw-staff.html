@@ -70,15 +70,21 @@
 <div id="map"></div>
 <script>
 	$(document).ready(function() {
-		$('#logout-btn').click(function() {
+		$('#logout-btn').click(function(event) {
 			$.get(
-				"http://2016.pgh.codes/api/auth/logout.php",
+				"http://2016.pgh.codes/api/event/release.php",
 				{ },
-				function(response) {
-					location.href = "index.html";
+				function (releaseResponse) { 
+					$.get(
+						"http://2016.pgh.codes/api/auth/logout.php",
+						{ },
+						function(logoutResponse) {},
+						"json"
+					);
 				},
 				"json"
 			);
+			window.href = "index.html";
 		});
 	});
 function initMap() {
@@ -135,21 +141,6 @@ function initMap() {
     //   title: 'Hello World!'
     // });
   }
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#logout-btn').click(function() {
-            $.get(
-                "http://2016.pgh.codes/api/auth/logout.php",
-                { },
-                function(response) {
-                    location.href = "index.html";
-                },
-                "json"
-            );
-    });
-    });
 </script>
       
 <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
