@@ -228,14 +228,21 @@ function initMap() {
 				$('.end-route').click(function (event) {
 					event.preventDefault();
 					$.get(
-				"http://2016.pgh.codes/api/event/release.php",
-				{ },
-				function (releaseResponse) { 
-					
-				},
-				"json"
-			);
-				})
+						"http://2016.pgh.codes/api/event/release.php",
+						{ },
+						function (releaseResponse) { },
+						"json"
+					);
+				});
+				$('.end-event').click(function (event) {
+					event.preventDefault();
+					$.get(
+						"http://2016.pgh.codes/api/event/end.php",
+						{ canId: $('#can-id').val(); }
+						function (response) { },
+						"json"
+					);
+				});
         });
 
 var refreshCanInterval = setInterval(redrawMarkers, 30000);
@@ -248,6 +255,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
     <p><button class="large overlay" onclick="openModal('#create-route');">Create Route</button></p>
 
     <!-- Create Route -->
+	<input type="hidden" id="can-id" value="" />
     <div id="create-route" class="modal-container">  
         <div class="modal-header">
             <a href="#" class="modal-close close">×</a>
@@ -297,7 +305,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
             <form id="bag-collected-form">
                 <div class="btn-group-2">
                     <button type="submit" form="bag-collected-form" value="End Route" class="bdr-right end-route"><i class="fa fa-times"></i> End Route</button>
-                    <button type="submit" form="bag-collected-form" value="Mark Bag as Collected"><i class="fa fa-check"></i> Bag Collected</button>
+                    <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="end-event"><i class="fa fa-check"></i> Bag Collected</button>
                 </div>
                 
             </form>
@@ -330,7 +338,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
             <hr>
 
             <form id="bag-collected-form">
-                <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="full-width large" style="margin-top: 0;">Mark Bag as Collected</button>
+                <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="full-width large end-event" style="margin-top: 0;">Mark Bag as Collected</button>
             </form>
         </div>
     </div>
