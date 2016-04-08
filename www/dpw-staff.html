@@ -190,16 +190,22 @@ function initMap() {
                 );
         }
         $(document).ready(function() {
-                $('#logout-btn').click(function() {
-                        $.get(
-                                "http://2016.pgh.codes/api/auth/logout.php",
-                                { },
-                                function(response) {
-                                        location.href = "index.html";
-                                },
-                                "json"
-                        );
-                });
+                		$('#logout-btn').click(function(event) {
+			$.get(
+				"http://2016.pgh.codes/api/event/release.php",
+				{ },
+				function (releaseResponse) { 
+					$.get(
+						"http://2016.pgh.codes/api/auth/logout.php",
+						{ },
+						function(logoutResponse) {},
+						"json"
+					);
+				},
+				"json"
+			);
+			window.href = "index.html";
+		});
                 $('#start-event').click(function(event) {
                         event.preventDefault();
                         var body = { canId: $('#can-id').val(), bags: $('#bag-number').val(), note: $('#comments').val() };
@@ -219,6 +225,17 @@ function initMap() {
                                 "json"
                         );
                 });
+				$('.end-route').click(function (event) {
+					event.preventDefault();
+					$.get(
+				"http://2016.pgh.codes/api/event/release.php",
+				{ },
+				function (releaseResponse) { 
+					
+				},
+				"json"
+			);
+				})
         });
 
 var refreshCanInterval = setInterval(redrawMarkers, 30000);
@@ -279,7 +296,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
 
             <form id="bag-collected-form">
                 <div class="btn-group-2">
-                    <button type="submit" form="bag-collected-form" value="End Route" class="bdr-right"><i class="fa fa-times"></i> End Route</button>
+                    <button type="submit" form="bag-collected-form" value="End Route" class="bdr-right end-route"><i class="fa fa-times"></i> End Route</button>
                     <button type="submit" form="bag-collected-form" value="Mark Bag as Collected"><i class="fa fa-check"></i> Bag Collected</button>
                 </div>
                 
