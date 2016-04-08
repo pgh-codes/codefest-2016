@@ -136,21 +136,6 @@ function initMap() {
     // });
   }
 </script>
-
-<script>
-    $(document).ready(function() {
-        $('#logout-btn').click(function() {
-            $.get(
-                "http://2016.pgh.codes/api/auth/logout.php",
-                { },
-                function(response) {
-                    location.href = "index.html";
-                },
-                "json"
-            );
-    });
-    });
-</script>
       
 <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
 </script>
