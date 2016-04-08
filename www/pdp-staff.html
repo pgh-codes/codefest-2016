@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
     <link rel="icon" type="image/x-icon" href="./assets/imgs/favicons/favicon.ico" />
     <link rel="icon" type="image/png" href="./assets/imgs/favicons/favicon.png" />
     <link rel="apple-touch-icon" sizes="57x57" href="./assets/imgs/favicons/apple-icon-57x57.png">
@@ -26,10 +26,10 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="./assets/imgs/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    
+
     <title>Trash Connect / Codefest 2016</title>
     <meta name="description" content="Trash Connect / Codefest 2016">
-    
+
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="Trash Connect / Codefest 2016 / ">
     <meta itemprop="description" content="Trash Connect / Codefest 2016">
@@ -45,23 +45,22 @@
     <meta property="og:description" content="Trash Connect / Codefest 2016" />
     <meta property="og:url" content="/pdp-staff.html" />
     <meta property="og:image" content="./assets/imgs/social-sharing.jpg" />
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="./assets/js/modal.js"></script>
 </head>
 
-  <body onload="openModal('#getting-started');">
+  <body>
     <header class="clearfix">
    <img src="./assets/imgs/logo_white.svg" onerror="this.src='./assets/imgs/logo_white.png'; this.onerror=null;" class="logo pull-left">
     <button id="logout-btn" class="pull-right">LOGOUT</button>
 </header>
 
-<div id="getting-started" class="modal-container">  
+    <div id="getting-started" class="modal-container">
     <div class="modal-header">
         <a href="#" class="modal-close close">×</a>
         <h3><i class="fa fa-home"></i> Getting Started</h3>
@@ -74,13 +73,16 @@
 </div>
 
 <style type="text/css">
-    #map { 
-        height: 100%; 
+    #map {
+        height: 100%;
     }
 </style>
 
 <div id="map"></div>
 <script>
+var markers = [];
+var map;
+
 function initMap() {
     var mapOpts = [
       {
@@ -110,7 +112,7 @@ function initMap() {
       }
     ];
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: { "lat":40.4405, "lng":-80.00015},
         mapTypeId: 'nolabels',
@@ -118,99 +120,126 @@ function initMap() {
     });
 
     map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
-	
+    redrawMarkers();
+  }
+  function redrawMarkers() {
+
     $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
-      for(x=0;x<json.cans.length;x++) {
-        var marker = new google.maps.Marker({
-          position: json.cans[x],
-          map: map,
-          icon: { path: google.maps.SymbolPath.CIRCLE, scale: 3, strokeWeight: 1, fillOpacity: 1, fillColor: json.cans[x].color },
-          title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type,
-        });
-		marker.canId = json.cans[x].id;
-		
-		marker.addListener('click', function() {
-			displayCanModal(this.canId);
-		});
-      }
+        console.log("refreshing cans");
+        oldMarkers = markers;
+        newMarkers = [];
+        for (index in json.cans) doAddMarker(json.cans[index]);
+        function doAddMarker(_data) {
+            var marker = new google.maps.Marker({
+              position: { lat: _data.lat, lng: _data.lng },
+              map: map,
+              icon: { path: google.maps.SymbolPath.CIRCLE, scale: 3, strokeWeight: 1, fillOpacity: 1, fillColor: _data.color },
+              title: "Can ID: " + _data.id + ", Type: " + _data.type,
+            });
+            marker.canId = _data.id;
+            marker.addListener('click', function() {
+                displayCanModal(this.canId);
+            });
+            newMarkers.push(marker);
+        }
+        markers = newMarkers;
+        for (var i=0;i<oldMarkers.length;i++) {
+            oldMarkers[i].setMap(null);
+            oldMarkers = [];
+        }
+        newMarkers = [];
     });
   }
-	function displayCanModal(canId) {
-		$.get(
-			"http://2016.pgh.codes/api/cans.php?",
-			{ canId: canId },
-			function(response) {
-				can = response.cans[0];
-			
-				//populate the modal
-				$('#last-pickup').html(can.lastPickup);
-				$('#approx-location').html(can.approxLocation);
-				
-				$('#recent-notes').html("");
-				$.each(can.recentNotes, function(index, note) {
-					$('#recent-notes').append(
-						'<li>' + note + '</li>'
-					);
-				});
-			
-				$('#can-id').val(canId);
-			
-				$('.on').removeClass('on');
-				switch(can.type) {
-					case 1:
-						$('.fa-trash.gray').addClass('on');
-						break;
-					case 2:
-						$('.fa-trash.black').addClass('on');
-						break;
-					case 3:
-						$('.fa-fire').addClass('on');
-						break;
-					case 4:
-						$('.fa-recycle').addClass('on');
-						break;
-					case 5:
-						$('.fa-certificate').addClass('on');
-						break;
-				}
-			
-				//Do the thing that makes the modal appear
-				openModal('#trash-can-info');
-			},
-			"json"
-		);
-	}
-	$(document).ready(function() {
-		$('#logout-btn').click(function() {
-			$.get(
-				"http://2016.pgh.codes/api/auth/logout.php",
-				{ },
-				function(response) {
-					location.href = "index.html";
-				},
-				"json"
-			);
-		});
-		$('#start-event').click(function(event) {
-			event.preventDefault();
-			var body = { canId: $('#can-id').val(), bags: $('#bag-number').val(), note: $('#comments').val() };
-			console.log(JSON.stringify(body));
-			$.post(
-				"http://2016.pgh.codes/api/event/new.php",
-				JSON.stringify(body),
-				function(response) {
-					console.log(response);
-					if(response.success == "true") {
-						alert('Pickup Scheduled!');
-					}
-					else {
-						alert("Please make sure you've set the correct number of bags.");
-					}
-				},
-				"json"
-			);
-		});
-	});
+
+  function setMapOnAll(map) {
+    for (var i = 0; i < marker.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+  function zeroMarkers() {
+    setMapOnAll(null);
+    markerArr = [];
+  }
+
+        function displayCanModal(canId) {
+                $.get(
+                        "http://2016.pgh.codes/api/cans.php?",
+                        { canId: canId },
+                        function(response) {
+                                can = response.cans[0];
+
+                                //populate the modal
+                                $('#last-pickup').html(can.lastPickup);
+                                $('#approx-location').html(can.approxLocation);
+
+                                $('#recent-notes').html("");
+                                $.each(can.recentNotes, function(index, note) {
+                                        $('#recent-notes').append(
+                                                '<li>' + note + '</li>'
+                                        );
+                                });
+
+                                $('#can-id').val(canId);
+
+                                $('.on').removeClass('on');
+                                switch(can.type) {
+                                        case 1:
+                                                $('.fa-trash.gray').addClass('on');
+                                                break;
+                                        case 2:
+                                                $('.fa-trash.black').addClass('on');
+                                                break;
+                                        case 3:
+                                                $('.fa-fire').addClass('on');
+                                                break;
+                                        case 4:
+                                                $('.fa-recycle').addClass('on');
+                                                break;
+                                        case 5:
+                                                $('.fa-certificate').addClass('on');
+                                                break;
+                                }
+
+                                //Do the thing that makes the modal appear
+                                openModal('#trash-can-info');
+                        },
+                        "json"
+                );
+        }
+        $(document).ready(function() {
+                $('#logout-btn').click(function() {
+                        $.get(
+                                "http://2016.pgh.codes/api/auth/logout.php",
+                                { },
+                                function(response) {
+                                        location.href = "index.html";
+                                },
+                                "json"
+                        );
+                });
+                $('#start-event').click(function(event) {
+                        event.preventDefault();
+                        var body = { canId: $('#can-id').val(), bags: $('#bag-number').val(), note: $('#comments').val() };
+                        console.log(JSON.stringify(body));
+                        $.post(
+                                "http://2016.pgh.codes/api/event/new.php",
+                                JSON.stringify(body),
+                                function(response) {
+                                        console.log(response);
+                                        if(response.success == "true") {
+                                                alert('Pickup Scheduled!');
+                                        }
+                                        else {
+                                                alert("Please make sure you've set the correct number of bags.");
+                                        }
+                                },
+                                "json"
+                        );
+                });
+        });
+
+var refreshCanInterval = setInterval(redrawMarkers, 30000);
 </script>
 
 <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
@@ -226,7 +255,7 @@ function initMap() {
         <ul class="list-icon-group">
             <li><i class="fa fa-map-marker"></i> <span id="approx-location">&nbsp;</span></li>
             <li><i class="fa fa-clock-o"></i> Last Pickup: <span id="last-pickup"></span></li>
-            <li><i class="fa fa-info-circle"></i> 
+            <li><i class="fa fa-info-circle"></i>
                 Can Type:&nbsp;&nbsp;
                 <span class="can-types">
                 <i class="fa fa-certificate"></i>
@@ -241,16 +270,16 @@ function initMap() {
         <hr>
 
         <h3>New Pickup Request</h3>
-		<form id="new-pickup-form">
-			<input type="hidden" id="can-id" value="" />
+                <form id="new-pickup-form">
+                        <input type="hidden" id="can-id" value="" />
             <input type="number" id="bag-number" placeholder="# of Bags">
             <textarea id="comments" style="resize: none;" placeholder="Comments? (Optional)"></textarea>
             <button id="start-event" value="Create" class="pull-right">Create Request</button>
-		</form>	
+                </form>
     </div>
 </div>
 
-   
+
   </body>
 
 </html>
