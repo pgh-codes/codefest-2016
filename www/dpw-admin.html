@@ -61,80 +61,156 @@
     <button class="pull-right">LOGOUT</button>
 </header>
 
-    <style type="text/css">
-    #map { 
-        height: 100%; 
-    }
-</style>
+ <style type="text/css">
+        #map { 
+            height: 100%; 
+        }
+    </style>
 
-<div id="map"></div>
-<script>
-function initMap() {
-    var mapOpts = [
-      {
-        featureType: "administrative",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "water",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "transit",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      }
-    ];
+    <div id="map"></div>
+    <script>
+    function initMap() {
+        var mapOpts = [
+          {
+            featureType: "administrative",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          },{
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          },{
+            featureType: "water",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          },{
+            featureType: "transit",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: { "lat":40.4405, "lng":-80.00015},
-        mapTypeId: 'nolabels',
-        disableDefaultUI: true
-    });
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: { "lat":40.4405, "lng":-80.00015},
+            mapTypeId: 'nolabels',
+            disableDefaultUI: true
+        });
 
-    map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
+        map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
 
-    $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
-      for(x=0;x<json.cans.length;x++) {
-        marker = new google.maps.Marker({
-          position: json.cans[x],
-          map: map,
-          title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type
+        $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
+          for(x=0;x<json.cans.length;x++) {
+            var marker = new google.maps.Marker({
+              position: json.cans[x],
+              map: map,
+              icon: { path: google.maps.SymbolPath.CIRCLE, scale: 3, strokeWeight: 1, fillOpacity: 1, fillColor: json.cans[x].color },
+              title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type,
+            });
+            marker.canId = json.cans[x].id;
+
+            marker.addListener('click', function() {
+                displayCanModal(this.canId);
+            });
+          }
         });
       }
-    });
+        function displayCanModal(canId) {
+            $.get(
+                "http://2016.pgh.codes/api/cans.php?",
+                { canId: canId },
+                function(response) {
+                    can = response.cans[0];
 
-    // var marker = new google.maps.Marker({
-    //   position: { "lat":40.4405, "lng":-80.00015 },
-    //   map: map,
-    //   title: 'Hello World!'
-    // });
-  }
-</script>
+                    //populate the modal
+                    $('#last-pickup').html(can.lastPickup);
+                    $('#approx-location').html(can.approxLocation);
 
-<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
-</script>
+                    $('#recent-notes').html("");
+                    $.each(can.recentNotes, function(index, note) {
+                        $('#recent-notes').append(
+                            '<li>' + note + '</li>'
+                        );
+                    });
 
-<div class="btn-group">
+                    $('#can-id').val(canId);
 
-    <a href="#"><button class="large view-team-btn"><i class="fa fa-users"></i></button></a>
+                    $('.on').removeClass('on');
+                    switch(can.type) {
+                        case 1:
+                            $('.fa-trash.gray').addClass('on');
+                            break;
+                        case 2:
+                            $('.fa-trash.black').addClass('on');
+                            break;
+                        case 3:
+                            $('.fa-fire').addClass('on');
+                            break;
+                        case 4:
+                            $('.fa-recycle').addClass('on');
+                            break;
+                        case 5:
+                            $('.fa-certificate').addClass('on');
+                            break;
+                    }
+
+                    //Do the thing that makes the modal appear
+                    openModal('#trash-can-info');
+                },
+                "json"
+            );
+        }
+        $(document).ready(function() {
+            $('#logout-btn').click(function() {
+                $.get(
+                    "http://2016.pgh.codes/api/auth/logout.php",
+                    { },
+                    function(response) {
+                        location.href = "index.html";
+                    },
+                    "json"
+                );
+            });
+            $('#start-event').click(function(event) {
+                event.preventDefault();
+                var body = { canId: $('#can-id').val(), bags: $('#bag-number').val(), note: $('#comments').val() };
+                console.log(JSON.stringify(body));
+                $.post(
+                    "http://2016.pgh.codes/api/event/new.php",
+                    JSON.stringify(body),
+                    function(response) {
+                        console.log(response);
+                        if(response.success == "true") {
+                            alert('Pickup Scheduled!');
+                        }
+                        else {
+                            alert("Please make sure you've set the correct number of bags.");
+                        }
+                    },
+                    "json"
+                );
+            });
+        });
+    </script>
+
+    <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
+    </script>
+
+<div class="btn-group-3">
+
+    <button class="large view-team-btn"><i class="fa fa-users"></i></button>
     
-    <a href="#"><button class="large middle add-team-btn"><i class="fa fa-user-plus"></i></button></a>
+    <button class="large middle add-team-btn"><i class="fa fa-user-plus"></i></button>
     
-    <a href="#"><button class="large export-data-btn"><i class="fa fa-bar-chart"></i></button></a>
+   <button class="large export-data-btn"><i class="fa fa-bar-chart"></i></button>
     
 </div>
 
@@ -177,7 +253,7 @@ function initMap() {
             <li><i class="fa fa-trash"></i> Avg. Bags Collected Per Shift: <span class="highlight">###</span></li>
         </ul>
 
-        <a href="#" class="pull-right edit-member-btn"><button><i class="fa fa-pencil-square-o"></i> Edit</button></a> 
+        <button class="pull-right edit-member-btn"><i class="fa fa-pencil-square-o"></i> Edit</button>
         <div class="clearfix">&nbsp;</div>
     </div>
 </div>
@@ -198,10 +274,11 @@ function initMap() {
                 <input class="required-field full-width" type="text" name="name" id="name" placeholder="John Doe" />
 
                 <label for="reset">Lost Password?</label>
-                <a href="#"><button name="reset" class="secondary full-width">Reset Password</button></a>
+                <button name="reset" class="secondary full-width">Reset Password</button>
                 
                 <div class="clearfix">&nbsp;</div>
-                <a href="#" class="pull-right"><button class="warning"><i class="fa fa-times"></i> Delete</button></a><a href="#" class="pull-right"><button><i class="fa fa-check"></i> Submit</button></a>
+                <button class="warning pull-right"><i class="fa fa-times"></i> Delete</button> 
+                <button class="pull-right"><i class="fa fa-check"></i> Submit</button>
                 <div class="clearfix">&nbsp;</div>
             </form>
     </div>
@@ -227,7 +304,7 @@ function initMap() {
                 <option value="pdp-admin">DPW Admin</option>
             </select>
             <div class="clearfix">&nbsp;</div>
-            <a href="#" class="pull-right"><button><i class="fa fa-plus"></i> Add</button></a>
+            <button class="pull-right"><i class="fa fa-plus"></i> Add</button>
             <div class="clearfix">&nbsp;</div>
         </form>
             
@@ -259,7 +336,7 @@ function initMap() {
 
             
             <div class="clearfix">&nbsp;</div>
-            <a href="#" class="pull-right"><button><i class="fa fa-check"></i> Submit</button></a>
+            <button class="pull-right"><i class="fa fa-check"></i> Submit</button>
             <div class="clearfix">&nbsp;</div>
         </form>
     </div>    

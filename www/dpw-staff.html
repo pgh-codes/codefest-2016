@@ -53,174 +53,248 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="./assets/js/modal.js"></script>
+      <script src="./assets/js/slideScreens.js"></script>
 </head>
 
-  <body >
+  <body>
     <header class="clearfix">
-   <img src="./assets/imgs/logo_white.svg" onerror="this.src='./assets/imgs/logo_white.png'; this.onerror=null;" class="logo pull-left">
-    <button class="pull-right" id="logout-btn">LOGOUT</button>
-</header>
+       <img src="./assets/imgs/logo_white.svg" onerror="this.src='./assets/imgs/logo_white.png'; this.onerror=null;" class="logo pull-left">
+        <button class="pull-right" id="logout-btn">LOGOUT</button>
+    </header>
 
-<style type="text/css">
-    #map { 
-        height: 100%; 
-    }
-</style>
+    <style type="text/css">
+        #map { 
+            height: 100%; 
+        }
+    </style>
 
-<div id="map"></div>
-<script>
-function initMap() {
-    var mapOpts = [
-      {
-        featureType: "administrative",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "water",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "transit",
-        elementType: "labels",
-        stylers: [
-          { visibility: "off" }
-        ]
-      }
-    ];
+    <div id="map"></div>
+    <script>
+    function initMap() {
+        var mapOpts = [
+          {
+            featureType: "administrative",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          },{
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          },{
+            featureType: "water",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          },{
+            featureType: "transit",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: { "lat":40.4405, "lng":-80.00015},
-        mapTypeId: 'nolabels',
-        disableDefaultUI: true
-    });
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: { "lat":40.4405, "lng":-80.00015},
+            mapTypeId: 'nolabels',
+            disableDefaultUI: true
+        });
 
-    map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
+        map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
 
-    $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
-      for(x=0;x<json.cans.length;x++) {
-        marker = new google.maps.Marker({
-          position: json.cans[x],
-          map: map,
-          title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type
+        $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
+          for(x=0;x<json.cans.length;x++) {
+            var marker = new google.maps.Marker({
+              position: json.cans[x],
+              map: map,
+              icon: { path: google.maps.SymbolPath.CIRCLE, scale: 3, strokeWeight: 1, fillOpacity: 1, fillColor: json.cans[x].color },
+              title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type,
+            });
+            marker.canId = json.cans[x].id;
+
+            marker.addListener('click', function() {
+                displayCanModal(this.canId);
+            });
+          }
         });
       }
-    });
-
-    // var marker = new google.maps.Marker({
-    //   position: { "lat":40.4405, "lng":-80.00015 },
-    //   map: map,
-    //   title: 'Hello World!'
-    // });
-  }
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#logout-btn').click(function() {
+        function displayCanModal(canId) {
             $.get(
-                "http://2016.pgh.codes/api/auth/logout.php",
-                { },
+                "http://2016.pgh.codes/api/cans.php?",
+                { canId: canId },
                 function(response) {
-                    location.href = "index.html";
+                    can = response.cans[0];
+
+                    //populate the modal
+                    $('#last-pickup').html(can.lastPickup);
+                    $('#approx-location').html(can.approxLocation);
+
+                    $('#recent-notes').html("");
+                    $.each(can.recentNotes, function(index, note) {
+                        $('#recent-notes').append(
+                            '<li>' + note + '</li>'
+                        );
+                    });
+
+                    $('#can-id').val(canId);
+
+                    $('.on').removeClass('on');
+                    switch(can.type) {
+                        case 1:
+                            $('.fa-trash.gray').addClass('on');
+                            break;
+                        case 2:
+                            $('.fa-trash.black').addClass('on');
+                            break;
+                        case 3:
+                            $('.fa-fire').addClass('on');
+                            break;
+                        case 4:
+                            $('.fa-recycle').addClass('on');
+                            break;
+                        case 5:
+                            $('.fa-certificate').addClass('on');
+                            break;
+                    }
+
+                    //Do the thing that makes the modal appear
+                    openModal('#trash-can-info');
                 },
                 "json"
             );
-    });
-    });
-</script>
+        }
+        $(document).ready(function() {
+            $('#logout-btn').click(function() {
+                $.get(
+                    "http://2016.pgh.codes/api/auth/logout.php",
+                    { },
+                    function(response) {
+                        location.href = "index.html";
+                    },
+                    "json"
+                );
+            });
+            $('#start-event').click(function(event) {
+                event.preventDefault();
+                var body = { canId: $('#can-id').val(), bags: $('#bag-number').val(), note: $('#comments').val() };
+                console.log(JSON.stringify(body));
+                $.post(
+                    "http://2016.pgh.codes/api/event/new.php",
+                    JSON.stringify(body),
+                    function(response) {
+                        console.log(response);
+                        if(response.success == "true") {
+                            alert('Pickup Scheduled!');
+                        }
+                        else {
+                            alert("Please make sure you've set the correct number of bags.");
+                        }
+                    },
+                    "json"
+                );
+            });
+        });
+    </script>
+
+    <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
+    </script>
+
+
+    <p><button class="large overlay" onclick="openModal('#create-route');">Create Route</button></p>
+
+    <!-- Create Route -->
+    <div id="create-route" class="modal-container">  
+        <div class="modal-header">
+            <a href="#" class="modal-close close">×</a>
+            <h3><i class="fa fa-filter"></i> Create Route</h3>
+        </div>
+
+        <div class="modal-body">
+            <form id="create-route-form">
+                <label for="filter-bags">Filter by Bag Count</label>
+                <input type="range" name="filter-bags" id="filter-bags" oninput="outputUpdate(value, '#bags', ' bags')" min="5" value="5" max="60" step="1" class="pull-left" />
+                <output for="filter-bags" id="bags" class="pull-right">5 bags</output>
+
+                <div class="clearfix"></div>
+                <p class="sep"><span>or</span></p>
+
+                <label for="filter-time"> Filter by Route Length</label>
+                <input type="range" name="filter-time" id="filter-time" oninput="outputUpdate(value, '#hours', ' hours')" min="1" value="1" max="12" step="1" class="pull-left" />
+                <output for="filter-time" id="hours" class="pull-right">1 hour</output>
+
+                <script>
+                    function outputUpdate(value, id, suffix) {
+                      document.querySelector(id).value = value + suffix;
+                    }
+                </script>
+
+                <div class="clearfix"></div>
+                <br>
+                <button value="Create Filtered Route" class="full-width alt-color" style="margin-bottom:0">Create Filtered Route</button>
+
+                <hr>
+                <button value="Create Auto Route" class="pull-right full-width med" onclick="twoThirdsSlide('#auto-route');">Create Auto Route</button>
+            </form>
+        </div>    
+    </div>
       
-<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
-</script>
+    <!-- Auto Route -->
+    <div id="auto-route" class="slide-container-partial transition">
+        <div class="slide-header">
+            <h2 class="pull-left"><i class="fa fa-location-arrow"></i> Create Auto Route</h2>
+            <a href="#" class="close-partial pull-right">×</a>
+            <div class="clearfix"></div>
+        </div>
 
-<p><a href="#"><button class="large overlay" onclick="openModal('#filter-route');">Create Route</button></a></p>
+        <div class="slide-body">
+            <h3>Directions here</h3>
 
-<div id="filter-route" class="modal-container">  
-    <div class="modal-header">
-        <a href="#" class="modal-close close">×</a>
-        <h3><i class="fa fa-filter"></i> Create Route</h3>
+            <form id="bag-collected-form">
+                <div class="btn-group-2">
+                    <button type="submit" form="bag-collected-form" value="End Route" class="bdr-right"><i class="fa fa-times"></i> End Route</button>
+                    <button type="submit" form="bag-collected-form" value="Mark Bag as Collected"><i class="fa fa-check"></i> Bag Collected</button>
+                </div>
+                
+            </form>
+        </div>
     </div>
+    
+    <!-- Trash Can Info -->
+    <div id="trash-can-info" class="modal-container">
+        <div class="modal-header">
+            <a href="#" class="modal-close close">×</a>
+            <h3><i class="fa fa-trash"></i> Details</h3>
+        </div>
 
-    <div class="modal-body">
-        <form id="create-route-form">
-            <label for="filter-bags">Filter by Bag Count</label>
-            <input type="range" name="filter-bags" id="filter-bags" oninput="outputUpdate(value, '#bags', ' bags')" min="5" value="5" max="60" step="1" class="pull-left" />
-            <output for="filter-bags" id="bags" class="pull-right">5 bags</output>
-            
-            <div class="clearfix"></div>
-            <p class="sep"><span>or</span></p>
-            
-            <label for="filter-time"> Filter by Route Length</label>
-            <input type="range" name="filter-time" id="filter-time" oninput="outputUpdate(value, '#hours', ' hours')" min="1" value="1" max="12" step="1" class="pull-left" />
-            <output for="filter-time" id="hours" class="pull-right">1 hour</output>
-            
-            <script>
-                function outputUpdate(value, id, suffix) {
-                  document.querySelector(id).value = value + suffix;
-                }
-            </script>
-            
-            <div class="clearfix"></div>
-            <br>
-            <a href="#"><button value="Create Filtered Route" class="full-width alt-color med" style="margin-bottom:0">Create Filtered Route</button></a>
-            
+        <div class="modal-body">
+            <ul class="list-icon-group">
+                <li><i class="fa fa-map-marker"></i> <span id="approx-location">&nbsp;</span></li>
+                <li><i class="fa fa-clock-o"></i> Last Pickup: <span id="last-pickup"></span></li>
+                <li><i class="fa fa-info-circle"></i> 
+                    Can Type:&nbsp;&nbsp;
+                    <span class="can-types">
+                    <i class="fa fa-certificate"></i>
+                    <i class="fa fa-recycle"></i>
+                    </span>
+                </li>
+                <li><i class="fa fa-comment"></i> <ul id="recent-notes">
+                    </ul>
+                </li>
+            </ul>
+
             <hr>
-            <a href="#"><button value="Create Auto Route" class="pull-right full-width med">Create Auto Route</button></a>
-        </form>
-    </div>    
-</div>
 
-<!--Trash Can Info - modal that will appear when a trash location on the map is click-->
-<!--
-<div id="trash-can-info" class="modal-container">  
-    <div class="modal-header">
-        <a href="#" class="modal-close close">×</a>
-        <h3><i class="fa fa-map-marker"></i> Details</h3>
+            <form id="bag-collected-form">
+                <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="full-width large" style="margin-top: 0;">Mark Bag as Collected</button>
+            </form>
+        </div>
     </div>
-
-    <div class="modal-body">
-        <ul class="list-icon-group">
-            <li><i class="fa fa-hashtag"></i> Bags at Location: </li>
-            <li><i class="fa fa-clock-o"></i> Last Pickup: 00:00 PM</li>
-            <li><i class="fa fa-info-circle"></i> 
-                Features:&nbsp;&nbsp;
-                <span class="can-types">
-                <i class="fa fa-certificate on"></i>
-                <i class="fa fa-recycle"></i>
-                <i class="fa fa-fire on"></i>
-                <i class="fa fa-trash gray"><span class="sml-txt">G</span></i>
-                <i class="fa fa-trash black on"><span class="sml-txt">B</span></i>
-                </span>
-            </li>
-            <li><i class="fa fa-comment"></i> Recent Comments
-                <ul class="recent-comments">
-                    <li>Comment here <span class="sml-txt">(Apr 1, 2016)</span></li>
-                    <li>Comment here <span class="sml-txt">(Mar 11, 2016)</span></li>
-                    <li>Comment here <span class="sml-txt">(Dec 20, 2015)</span></li>
-                </ul>
-            </li>
-        </ul>
-
-        <hr>
-
-        <form id="bag-collected-form">
-            <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="full-width">Mark Bag as Collected</button>
-        </form>
-
-    </div>
-</div>
--->
-
    
   </body>
 
