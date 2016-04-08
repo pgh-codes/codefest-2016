@@ -238,7 +238,7 @@ function initMap() {
 					event.preventDefault();
 					$.get(
 						"http://2016.pgh.codes/api/event/end.php",
-						{ canId: $('#can-id').val(); }
+						{ canId: $('#can-id').val() },
 						function (response) { },
 						"json"
 					);
@@ -256,7 +256,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
 
     <!-- Create Route -->
 	<input type="hidden" id="can-id" value="" />
-    <div id="create-route" class="modal-container">  
+    <div id="create-route" class="modal-container">
         <div class="modal-header">
             <a href="#" class="modal-close close">×</a>
             <h3><i class="fa fa-filter"></i> Create Route</h3>
