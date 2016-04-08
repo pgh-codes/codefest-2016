@@ -61,66 +61,71 @@
     <button class="pull-right">LOGOUT</button>
 </header>
 
- <style type="text/css">
-        #map { 
-            height: 100%; 
-        }
-    </style>
 
-    <div id="map"></div>
-    <script>
-    function initMap() {
-        var mapOpts = [
-          {
-            featureType: "administrative",
-            elementType: "labels",
-            stylers: [
-              { visibility: "off" }
-            ]
-          },{
-            featureType: "poi",
-            elementType: "labels",
-            stylers: [
-              { visibility: "off" }
-            ]
-          },{
-            featureType: "water",
-            elementType: "labels",
-            stylers: [
-              { visibility: "off" }
-            ]
-          },{
-            featureType: "transit",
-            elementType: "labels",
-            stylers: [
-              { visibility: "off" }
-            ]
-          }
-        ];
+<style type="text/css">
+    #map { 
+        height: 100%; 
+    }
+</style>
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
-            center: { "lat":40.4405, "lng":-80.00015},
-            mapTypeId: 'nolabels',
-            disableDefaultUI: true
-        });
+<div id="map"></div>
+<script>
+	$(document).ready(function() {
+		$('#logout-btn').click(function() {
+			$.get(
+				"http://2016.pgh.codes/api/auth/logout.php",
+				{ },
+				function(response) {
+					location.href = "index.html";
+				},
+				"json"
+			);
+		});
+	});
+function initMap() {
+    var mapOpts = [
+      {
+        featureType: "administrative",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      },{
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      },{
+        featureType: "water",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      },{
+        featureType: "transit",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      }
+    ];
 
-        map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: { "lat":40.4405, "lng":-80.00015},
+        mapTypeId: 'nolabels',
+        disableDefaultUI: true
+    });
 
-        $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
-          for(x=0;x<json.cans.length;x++) {
-            var marker = new google.maps.Marker({
-              position: json.cans[x],
-              map: map,
-              icon: { path: google.maps.SymbolPath.CIRCLE, scale: 3, strokeWeight: 1, fillOpacity: 1, fillColor: json.cans[x].color },
-              title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type,
-            });
-            marker.canId = json.cans[x].id;
+    map.mapTypes.set('nolabels', new google.maps.StyledMapType(mapOpts, { name: 'No Labels' }));
 
-            marker.addListener('click', function() {
-                displayCanModal(this.canId);
-            });
-          }
+    $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
+      for(x=0;x<json.cans.length;x++) {
+        marker = new google.maps.Marker({
+          position: json.cans[x],
+          map: map,
+          title: "Can ID: " + json.cans[x].id + ", Type: " + json.cans[x].type
         });
       }
         function displayCanModal(canId) {
