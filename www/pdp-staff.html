@@ -125,7 +125,6 @@ function initMap() {
   function redrawMarkers() {
 
     $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
-        console.log("refreshing cans");
         oldMarkers = markers;
         newMarkers = [];
         for (index in json.cans) doAddMarker(json.cans[index]);
@@ -143,23 +142,15 @@ function initMap() {
             newMarkers.push(marker);
         }
         markers = newMarkers;
-        for (var i=0;i<oldMarkers.length;i++) {
-            oldMarkers[i].setMap(null);
-            oldMarkers = [];
-        }
-        newMarkers = [];
+        setTimeout(removeMarkers, 500, oldMarkers);
+        newMarkers = null;
     });
   }
 
-  function setMapOnAll(map) {
-    for (var i = 0; i < marker.length; i++) {
-      markers[i].setMap(map);
+  function removeMarkers(markerArr) {
+    for (var i=0;i<markerArr.length;i++) {
+        markerArr[i].setMap(null);
     }
-  }
-
-  function zeroMarkers() {
-    setMapOnAll(null);
-    markerArr = [];
   }
 
         function displayCanModal(canId) {
