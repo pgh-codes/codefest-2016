@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
     <link rel="icon" type="image/x-icon" href="./assets/imgs/favicons/favicon.ico" />
     <link rel="icon" type="image/png" href="./assets/imgs/favicons/favicon.png" />
     <link rel="apple-touch-icon" sizes="57x57" href="./assets/imgs/favicons/apple-icon-57x57.png">
@@ -26,10 +26,10 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="./assets/imgs/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    
+
     <title>Trash Connect / Codefest 2016</title>
     <meta name="description" content="Trash Connect / Codefest 2016">
-    
+
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="Trash Connect / Codefest 2016 / ">
     <meta itemprop="description" content="Trash Connect / Codefest 2016">
@@ -45,11 +45,11 @@
     <meta property="og:description" content="Trash Connect / Codefest 2016" />
     <meta property="og:url" content="/dpw-staff.html" />
     <meta property="og:image" content="./assets/imgs/social-sharing.jpg" />
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="./assets/js/modal.js"></script>
@@ -115,7 +115,7 @@ function initMap() {
   }
   function redrawMarkers() {
 
-    $.getJSON("http://2016.pgh.codes/api/cans.php", function(json){
+    $.getJSON("http://2016.pgh.codes/api/cans.php?statusId=2,3,4,5", function(json){
         oldMarkers = markers;
         newMarkers = [];
         for (index in json.cans) doAddMarker(json.cans[index]);
@@ -194,7 +194,7 @@ function initMap() {
 			$.get(
 				"http://2016.pgh.codes/api/event/release.php",
 				{ },
-				function (releaseResponse) { 
+				function (releaseResponse) {
 					$.get(
 						"http://2016.pgh.codes/api/auth/logout.php",
 						{ },
@@ -230,8 +230,8 @@ function initMap() {
 					$.get(
 				"http://2016.pgh.codes/api/event/release.php",
 				{ },
-				function (releaseResponse) { 
-					
+				function (releaseResponse) {
+
 				},
 				"json"
 			);
@@ -248,7 +248,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
     <p><button class="large overlay" onclick="openModal('#create-route');">Create Route</button></p>
 
     <!-- Create Route -->
-    <div id="create-route" class="modal-container">  
+    <div id="create-route" class="modal-container">
         <div class="modal-header">
             <a href="#" class="modal-close close">×</a>
             <h3><i class="fa fa-filter"></i> Create Route</h3>
@@ -280,9 +280,9 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
                 <hr>
                 <button value="Create Auto Route" class="pull-right full-width med" onclick="twoThirdsSlide('#auto-route');">Create Auto Route</button>
             </form>
-        </div>    
+        </div>
     </div>
-      
+
     <!-- Auto Route -->
     <div id="auto-route" class="slide-container-partial transition">
         <div class="slide-header">
@@ -299,11 +299,11 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
                     <button type="submit" form="bag-collected-form" value="End Route" class="bdr-right end-route"><i class="fa fa-times"></i> End Route</button>
                     <button type="submit" form="bag-collected-form" value="Mark Bag as Collected"><i class="fa fa-check"></i> Bag Collected</button>
                 </div>
-                
+
             </form>
         </div>
     </div>
-    
+
     <!-- Trash Can Info -->
     <div id="trash-can-info" class="modal-container">
         <div class="modal-header">
@@ -315,7 +315,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
             <ul class="list-icon-group">
                 <li><i class="fa fa-map-marker"></i> <span id="approx-location">&nbsp;</span></li>
                 <li><i class="fa fa-clock-o"></i> Last Pickup: <span id="last-pickup"></span></li>
-                <li><i class="fa fa-info-circle"></i> 
+                <li><i class="fa fa-info-circle"></i>
                     Can Type:&nbsp;&nbsp;
                     <span class="can-types">
                     <i class="fa fa-certificate"></i>
@@ -334,7 +334,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
             </form>
         </div>
     </div>
-   
+
   </body>
 
 </html>
