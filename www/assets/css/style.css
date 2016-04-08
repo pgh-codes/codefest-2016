@@ -1233,7 +1233,7 @@ ul.list-names li .fa-lg {
     top: 92%;
     height: 45%;
     overflow: scroll;
-    z-index: 0
+    z-index: 998
 }
 
 .slide-container-partial .slide-header {

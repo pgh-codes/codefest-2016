@@ -50,21 +50,19 @@ $(".edit-member-btn").click(function (event) {
 });
 
 
-// Two Thirds Screens fo Directions
-function twoThirdsSlide(id) {
+// Partial Screens
+function partialSlide(id) {
     $(this).click(function (event) {
         event.preventDefault();
         $(id).toggleClass("open-partial");
         $("button.overlay").toggleClass("hide");
     });
 
-    $('#create-route').fadeOut(300, function () {
+    $('#create-route').fadeOut(500, function () {
         $('#create-route').toggleClass("open-slide");
     });
 
-    $(".modal-overlay").css({
-        'display': 'none'
-    });
+    $(".modal-overlay").remove();
 }
 
 $(".close-partial").click(function (event) {
