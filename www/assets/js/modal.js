@@ -10,14 +10,16 @@ function openModal(modalId) {
         at: "center",
         of: ".modal-overlay"
     });
+    
+    $(".modal-close, .modal-overlay").click(function (event) {
+        event.preventDefault();
+        $(".modal-container, .modal-overlay").fadeOut(400, function () {
+            $(".modal-overlay").remove();
+        });
+    });
 }  
 
-$(".modal-close, .modal-overlay").click(function (event) {
-    event.preventDefault();
-    $(".modal-container, .modal-overlay").fadeOut(400, function () {
-        $(".modal-overlay").remove();
-    });
-});
+
 
 $("#start-event").click(function (event) {
     event.preventDefault();
