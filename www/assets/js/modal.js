@@ -4,22 +4,28 @@ function openModal(modalId) {
     $("body").append(appendthis);
     $(".modal-overlay").fadeTo(500, 0.7);
     $(".modal-container").fadeIn(500);
-    
+
     $("button.overlay").css({
-        'position' : 'absolute',
+        'position': 'absolute',
         'z-index': '999'
     });
 
-    $(".modal-close, .modal-overlay").click(function () {
+    $(".modal-close, .modal-overlay").click(function (event) {
+        event.preventDefault();
         $(".modal-container, .modal-overlay").fadeOut(500, function () {
             $(".modal-overlay").remove();
         });
     });
-    
-    $(modalId).position({
-      my: "center",
-      at: "center",
-      of: ".modal-overlay"
-    }); 
-}
 
+
+    $(modalId).position({
+        my: "center",
+        at: "center",
+        of: ".modal-overlay"
+    });
+}    
+
+$("#start-event").click(function (event) {
+    event.preventDefault();
+    redrawMarkers();
+});
