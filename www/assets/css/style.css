@@ -1232,8 +1232,9 @@ ul.list-names li .fa-lg {
     width: 100%;
     position: absolute;
     top: 92%;
-    height: 45%;
-    overflow: scroll;
+    height: 57.9%;
+    overflow-x: hidden;
+    overflow-y: scroll;
     z-index: 998
 }
 
