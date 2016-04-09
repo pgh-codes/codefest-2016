@@ -280,7 +280,7 @@ function initMap() {
 
           directionsDisplay = new google.maps.DirectionsRenderer();
           directionsDisplay.setMap(map);
-          directionsDisplay.setPanel(document.getElementById("auto-route"));
+          // directionsDisplay.setPanel(document.getElementById("auto-route"));
 
           var request = {
             origin: { lat:40.4405, lng:-80.00015 },
@@ -296,8 +296,9 @@ function initMap() {
               for (var i=0;i<routeresp.routes[0].legs[0].steps.length;i++) {
                 $(".slide-body").append("<p>" + routeresp.routes[0].legs[0].steps[i].instructions + "</p>");
               }
-              $(".slide-body").append('<p class="sml-txt"><i>' + routeresp.routes[0].copyrights + '</i></p>')
+              $(".slide-body").append('<p class="sml-txt"><em>' + routeresp.routes[0].copyrights + '</em></p>')
             }
+            directionsDisplay.setDirections(routeresp);
           });
         }
 
