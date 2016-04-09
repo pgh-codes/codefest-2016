@@ -292,7 +292,11 @@ function initMap() {
           directionsService.route(request, function(routeresp, status) {
             if (status == google.maps.DirectionsStatus.OK) {
               console.log(routeresp);
-              directionsDisplay.setDirections(routeresp);
+              $(".slide-body").append("<h2>Next Stop: " + routeresp.routes[0].legs[0].end_address.split(',',1) + "</h2>");
+              for (var i=0;i<routeresp.routes[0].legs[0].steps.length;i++) {
+                $(".slide-body").append("<p>" + routeresp.routes[0].legs[0].steps[i].instructions + "</p>");
+              }
+              $(".slide-body").append('<p class="sml-txt"><i>' + routeresp.routes[0].copyrights + '</i></p>')
             }
           });
         }
@@ -300,6 +304,8 @@ function initMap() {
         function startAutoRoute() {
           getClosestCan();
         }
+
+
 
 
 var refreshCanInterval = setInterval(redrawMarkers, 5000);
@@ -328,7 +334,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
                 <button value="Create Route by Bag Count" class="full-width alt-color" style="margin:0">Create Route by Bag Count</button>
 
                 <hr>
-                
+
                 <label for="filter-time" style="margin-top: 0;"> Filter by Route Length</label>
                 <input type="range" name="filter-time" id="filter-time" oninput="outputUpdate(value, '#hours', ' hours')" min="1" value="1" max="12" step="1" class="pull-left" />
                 <output for="filter-time" id="hours" class="pull-right">1 hour</output>
@@ -355,11 +361,11 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
             <div class="clearfix"></div>
         </div>
 
-        <div class="slide-body">
+        <div class="slide-body" id="slide-body">
 
 
         </div>
-        
+
         <form id="bag-collected-form">
             <div class="btn-group-2">
                 <button value="End Route" id="close-partial" class="bdr-right end-route"><i class="fa fa-times"></i><br>End Route</button>
