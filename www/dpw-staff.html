@@ -273,6 +273,7 @@ function initMap() {
               closestaddr = { lat: can.lat, lng: can.lng };
             }
           }
+          initializeRoute();
         }
 
         var directionsDisplay;
@@ -293,14 +294,18 @@ function initMap() {
           directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
+              var leg = response[0].legs[0];
             }
           });
         }
 
+        function startAutoRoute() {
+          getClosestCan();
+        }
 
 
 
-var refreshCanInterval = setInterval(redrawMarkers, 30000);
+var refreshCanInterval = setInterval(redrawMarkers, 5000);
 </script>
 
 <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
@@ -340,7 +345,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
                 <button value="Create Route by Length" class="full-width alt-color" style="margin:0">Create Route by Length</button>
 
                 <hr>
-                <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');">Create Auto Route</button>
+                <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');startAutoRoute();">Create Auto Route</button>
             </form>
         </div>
     </div>
