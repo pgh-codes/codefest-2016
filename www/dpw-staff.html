@@ -203,7 +203,7 @@ function initMap() {
 					$.get(
 						"http://2016.pgh.codes/api/auth/logout.php",
 						{ },
-						function(logoutResponse) {},
+						function(logoutResponse) { location.href = "index.html"; },
 						"json"
 					);
 				},
