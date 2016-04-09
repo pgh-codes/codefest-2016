@@ -249,22 +249,20 @@ function initMap() {
 					);
 				});
         });
-
         function getClosestCan() {
           var service = new google.maps.DistanceMatrixService();
-          for(index in markerjson.cans) {
-            (function (index) {
+          for(var i=0;i<markerjson.cans.length;i++) {
+            (function (i) {
               service.getDistanceMatrix({
                 origins: [ { "lat":40.4405, "lng":-80.00015} ],
-                destinations: [ markerjson.cans[index] ],
+                destinations: [ markerjson.cans[i] ],
                 travelMode: google.maps.TravelMode.DRIVING
-              }, function(response, status) { closestCallback(response, status, markerjson.cans[index]) } );
-            })(index);
+              }, function(response, status) { closestCallback(response, status, markerjson.cans[i]) } );
+            })(i);
           }
         }
 
-        function closestCallback(response, status, can) {
-          // console.log(canid);
+        function closestCallback(response, status, can, startroute) {
           for (var i=0;i<response.rows[0].elements.length;i++) {
             if (closestdist == null || response.rows[0].elements[i].distance.value < closestdist) {
               closestdist = response.rows[0].elements[i].distance.value;
@@ -273,7 +271,6 @@ function initMap() {
               closestaddr = { lat: can.lat, lng: can.lng };
             }
           }
-          initializeRoute();
         }
 
         var directionsDisplay;
@@ -288,13 +285,14 @@ function initMap() {
           var request = {
             origin: { lat:40.4405, lng:-80.00015 },
             destination: closestaddr,
-            travelMode: google.maps.TravelMode.DRIVING
+            travelMode: google.maps.TravelMode.DRIVING,
+            provideRouteAlternatives: false
           }
 
-          directionsService.route(request, function(response, status) {
+          directionsService.route(request, function(routeresp, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-              directionsDisplay.setDirections(response);
-              var leg = response[0].legs[0];
+              console.log(routeresp);
+              directionsDisplay.setDirections(routeresp);
             }
           });
         }
@@ -304,7 +302,6 @@ function initMap() {
         }
 
 
-
 var refreshCanInterval = setInterval(redrawMarkers, 5000);
 </script>
 
@@ -312,7 +309,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
 </script>
 <!-- MAP END -->
 
-    <p><button class="large overlay" id="create-route-overlay-btn" onclick="openModal('#create-route');">Create Route</button></p>
+    <p><button class="large overlay" id="create-route-overlay-btn" onclick="openModal('#create-route');getClosestCan();">Create Route</button></p>
 
     <!-- Create Route Modal -->
 	<input type="hidden" id="can-id" value="" />
@@ -345,7 +342,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
                 <button value="Create Route by Length" class="full-width alt-color" style="margin:0">Create Route by Length</button>
 
                 <hr>
-                <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');startAutoRoute();">Create Auto Route</button>
+                <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');initializeRoute();">Create Auto Route</button>
             </form>
         </div>
     </div>
