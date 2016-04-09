@@ -278,9 +278,13 @@ function initMap() {
         function initializeRoute() {
           var directionsService = new google.maps.DirectionsService();
 
-          directionsDisplay = new google.maps.DirectionsRenderer();
-          directionsDisplay.setMap(map);
-          directionsDisplay.setPanel(document.getElementById("auto-route"));
+          directionsDisplay = new google.maps.DirectionsRenderer({
+            map: map,
+            preserveViewport: true,
+            suppressMarkers: true
+          });
+          // directionsDisplay.setMap(map);
+          // directionsDisplay.setPanel(document.getElementById("auto-route"));
 
           var request = {
             origin: { lat:40.4405, lng:-80.00015 },
@@ -298,6 +302,7 @@ function initMap() {
               }
               $(".slide-body").append('<p class="sml-txt" style=\"font-weight: 500 \"><i>' + routeresp.routes[0].copyrights + '</i></p>')
             }
+            directionsDisplay.setDirections(routeresp);
           });
         }
 
