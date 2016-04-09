@@ -248,6 +248,9 @@ function initMap() {
 						"json"
 					);
 				});
+				$('.other-end-event').click(function (event) {
+					event.preventDefault();
+				});
         });
         function getClosestCan() {
           redrawMarkers();
@@ -258,13 +261,13 @@ function initMap() {
                 origins: [ { "lat":40.4405, "lng":-80.00015} ],
                 destinations: [ markerjson.cans[i] ],
                 travelMode: google.maps.TravelMode.DRIVING
-              }, function(response, status) { closestCallback(response, status, markerjson.cans[i]); if((markerjson.cans.length-1) == i) { initializeRoute(); } else { console.log('false'); } } );
+              }, function(response, status) { closestCallback(response, status, markerjson.cans[i]); if((markerjson.cans.length-1) == i) { initializeRoute(); } } );
             })(i);
           }
         }
 
         function closestCallback(response, status, can, startroute, cancount) {
-          console.log(cancount);
+          // console.log(cancount);
           for (var i=0;i<response.rows[0].elements.length;i++) {
             if (closestdist == null || response.rows[0].elements[i].distance.value < closestdist) {
               closestdist = response.rows[0].elements[i].distance.value;
@@ -297,7 +300,7 @@ function initMap() {
 
           directionsService.route(request, function(routeresp, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-              console.log(routeresp);
+              // console.log(routeresp);
               $(".slide-body").append("<h3 style=\"margin: 15px 0 15px 0; font-size: 1.5em; color: #1883c4; \"><i class=\"fa fa-map-pin\"></i> " + routeresp.routes[0].legs[0].end_address.split(',',1) + "</h3>");
               for (var i=0;i<routeresp.routes[0].legs[0].steps.length;i++) {
                 $(".slide-body").append("<p style=\"margin-left: 1.125em;\"> " + routeresp.routes[0].legs[0].steps[i].instructions + "</p>");
@@ -308,6 +311,7 @@ function initMap() {
           });
         }
         function collectBag() {
+          console.log("collecting: " + closestcan);
           $.get(
             "http://2016.pgh.codes/api/event/end.php",
             { canId: closestcan },
@@ -380,12 +384,13 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
 
         <div class="slide-body" id="slide-body">
 
+
         </div>
 
         <form id="bag-collected-form">
             <div class="btn-group-2">
                 <button value="End Route" id="close-partial" class="bdr-right end-route"><i class="fa fa-times"></i><br>End Route</button>
-                <button value="Mark Bag as Collected" id="close-partial" class="end-event" onclick="nextAutoRoute();"><i class="fa fa-check"></i><br>Collected</button>
+                <button value="Mark Bag as Collected" id="close-partial" class="other-end-event" onclick="nextAutoRoute();"><i class="fa fa-check"></i><br>Collected</button>
             </div>
 
         </form>
