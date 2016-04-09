@@ -1,9 +1,9 @@
-function openModal(modalId, fadeTime) {
+function openModal(modalId) {
     var appendthis = ("<div class='modal-overlay modal-close'></div>");
 
     $("body").append(appendthis);
     $(".modal-overlay").fadeTo(500, 0.7);
-    $(modalId).fadeIn(fadeTime);
+    $(modalId).fadeIn(500);
 
     $(modalId).position({
         my: "center",
