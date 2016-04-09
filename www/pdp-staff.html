@@ -232,6 +232,8 @@ function initMap() {
 						//Return Create Event form to default values
 						$('#bag-number').val(1);
 						$('#comments').val("");
+                        
+                        openModal('#trash-can-success');
                 });
         });
 
@@ -241,7 +243,8 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
 <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEnFUGKXAcUT2CcCfYo8DpZ-CRG4-U6FA&amp;callback=initMap">
 </script>
 <!-- MAP END -->
-      
+
+<!-- Trash Can Info Modal -->
 <div id="trash-can-info" class="modal-container">
     <div class="modal-header">
         <a href="#" class="modal-close close">×</a>
@@ -271,11 +274,24 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
                         <input type="hidden" id="can-id" value="" />
             <input type="number" id="bag-number" placeholder="# of Bags" min="1" value="1" step="1">
             <textarea id="comments" style="resize: none;" placeholder="Comments? (Optional)"></textarea>
-            <button id="start-event" value="Create" class="pull-right modal-close">Create Request</button>
+            <button id="start-event" value="Create" class="modal-close full-width">Mark as Ready for Pickup</button>
                 </form>
     </div>
 </div>
 
+
+<!-- Success Modal -->
+<div id="trash-can-success" class="modal-container">
+    <div class="modal-header">
+        <a href="#" class="modal-close close">×</a>
+        <h3><i class="fa fa-trash"></i> Success!</h3>
+    </div>
+
+    <div class="modal-body">
+        <p>Your bags have successfully been marked as ready for pickup.</p>
+        <button class="pull-right modal-close">Close</button>
+    </div>
+</div>
 
   </body>
 
