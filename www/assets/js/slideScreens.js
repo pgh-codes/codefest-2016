@@ -58,7 +58,7 @@ function partialSlide(slideId) {
     $("#create-route-overlay-btn").toggleClass("hide");
     $('#create-route').fadeToggle(400);
     
-    $(".close-partial").click(function (event) {
+    $("#close-partial").click(function () {
         event.preventDefault();
         $(slideId).toggleClass("open-partial");
         $("#create-route-overlay-btn").toggleClass("hide");

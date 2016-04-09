@@ -314,7 +314,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
     <div id="create-route" class="modal-container">
         <div class="modal-header">
             <a href="#" class="modal-close close">×</a>
-            <h3><i class="fa fa-filter"></i> Create Route</h3>
+            <h3><i class="fa fa-location-arrow"></i> Create Route</h3>
         </div>
 
         <div class="modal-body">
@@ -323,10 +323,11 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
                 <input type="range" name="filter-bags" id="filter-bags" oninput="outputUpdate(value, '#bags', ' bags')" min="5" value="5" max="60" step="1" class="pull-left" />
                 <output for="filter-bags" id="bags" class="pull-right">5 bags</output>
 
-                <div class="clearfix"></div>
-                <p class="sep"><span>or</span></p>
+                <button value="Create Route by Bag Count" class="full-width alt-color" style="margin:0">Create Route by Bag Count</button>
 
-                <label for="filter-time"> Filter by Route Length</label>
+                <hr>
+                
+                <label for="filter-time" style="margin-top: 0;"> Filter by Route Length</label>
                 <input type="range" name="filter-time" id="filter-time" oninput="outputUpdate(value, '#hours', ' hours')" min="1" value="1" max="12" step="1" class="pull-left" />
                 <output for="filter-time" id="hours" class="pull-right">1 hour</output>
 
@@ -336,9 +337,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
                     }
                 </script>
 
-                <div class="clearfix"></div>
-                <br>
-                <button value="Create Filtered Route" class="full-width alt-color" style="margin-bottom:0">Create Filtered Route</button>
+                <button value="Create Route by Length" class="full-width alt-color" style="margin:0">Create Route by Length</button>
 
                 <hr>
                 <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');">Create Auto Route</button>
@@ -350,7 +349,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
     <div id="auto-route" class="slide-container-partial transition">
         <div class="slide-header">
             <h2 class="pull-left"><i class="fa fa-location-arrow"></i> Create Auto Route</h2>
-            <a href="#" class="close-partial pull-right">×</a>
+            <a href="#" id="close-partial" class="pull-right">×</a>
             <div class="clearfix"></div>
         </div>
 
@@ -359,8 +358,8 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
 
             <form id="bag-collected-form">
                 <div class="btn-group-2">
-                    <button value="End Route" class="bdr-right end-route close-partial"><i class="fa fa-times"></i> End Route</button>
-                    <button value="Mark Bag as Collected" class="end-event close-partial"><i class="fa fa-check"></i> Bag Collected</button>
+                    <button value="End Route" id="close-partial" class="bdr-right end-route"><i class="fa fa-times"></i> End Route</button>
+                    <button value="Mark Bag as Collected" id="close-partial" class="end-event"><i class="fa fa-check"></i> Bag Collected</button>
                 </div>
 
             </form>

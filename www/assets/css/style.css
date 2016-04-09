@@ -1173,7 +1173,7 @@ ul.list-names li .fa-lg {
 }
 
 .slide-container a.close, 
-.slide-container-partial a.close-partial {
+.slide-container-partial a#close-partial {
     line-height: .7em;
     font-size: 1.5em;
     font-size: 2.625em;
@@ -1182,7 +1182,7 @@ ul.list-names li .fa-lg {
 }
 
 .slide-container a.close:hover,
-.slide-container-partial a.close-partial {
+.slide-container-partial a#close-partial {
     color: #000102;
     -webkit-transition: color 1s ease;
     -moz-transition: color 1s ease;
