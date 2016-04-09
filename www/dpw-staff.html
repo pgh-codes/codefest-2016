@@ -250,6 +250,7 @@ function initMap() {
 				});
         });
         function getClosestCan() {
+          redrawMarkers();
           var service = new google.maps.DistanceMatrixService();
           for(var i=0;i<markerjson.cans.length;i++) {
             (function (i) {
@@ -257,12 +258,13 @@ function initMap() {
                 origins: [ { "lat":40.4405, "lng":-80.00015} ],
                 destinations: [ markerjson.cans[i] ],
                 travelMode: google.maps.TravelMode.DRIVING
-              }, function(response, status) { closestCallback(response, status, markerjson.cans[i]) } );
+              }, function(response, status) { closestCallback(response, status, markerjson.cans[i]); if((markerjson.cans.length-1) == i) { initializeRoute(); } else { console.log('false'); } } );
             })(i);
           }
         }
 
-        function closestCallback(response, status, can, startroute) {
+        function closestCallback(response, status, can, startroute, cancount) {
+          console.log(cancount);
           for (var i=0;i<response.rows[0].elements.length;i++) {
             if (closestdist == null || response.rows[0].elements[i].distance.value < closestdist) {
               closestdist = response.rows[0].elements[i].distance.value;
@@ -305,8 +307,18 @@ function initMap() {
             directionsDisplay.setDirections(routeresp);
           });
         }
+        function collectBag() {
+          $.get(
+            "http://2016.pgh.codes/api/event/end.php",
+            { canId: closestcan },
+            function (response) { },
+            "json"
+          );
+        }
 
-        function startAutoRoute() {
+        function nextAutoRoute() {
+          $('.slide-body').empty();
+          collectBag();
           getClosestCan();
         }
 
@@ -320,7 +332,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
 </script>
 <!-- MAP END -->
 
-    <p><button class="large overlay" id="create-route-overlay-btn" onclick="openModal('#create-route');getClosestCan();">Create Route</button></p>
+    <p><button class="large overlay" id="create-route-overlay-btn" onclick="openModal('#create-route');">Create Route</button></p>
 
     <!-- Create Route Modal -->
 	<input type="hidden" id="can-id" value="" />
@@ -353,7 +365,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
                 <button value="Create Route by Length" class="full-width alt-color" style="margin:0">Create Route by Length</button>
 
                 <hr>
-                <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');initializeRoute();">Create Auto Route</button>
+                <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');getClosestCan();">Create Auto Route</button>
             </form>
         </div>
     </div>
@@ -373,7 +385,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
         <form id="bag-collected-form">
             <div class="btn-group-2">
                 <button value="End Route" id="close-partial" class="bdr-right end-route"><i class="fa fa-times"></i><br>End Route</button>
-                <button value="Mark Bag as Collected" id="close-partial" class="end-event"><i class="fa fa-check"></i><br>Collected</button>
+                <button value="Mark Bag as Collected" id="close-partial" class="end-event" onclick="nextAutoRoute();"><i class="fa fa-check"></i><br>Collected</button>
             </div>
 
         </form>
