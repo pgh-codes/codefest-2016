@@ -51,22 +51,17 @@ $(".edit-member-btn").click(function (event) {
 
 
 // Partial Screens
-function partialSlide(id) {
-    $(this).click(function (event) {
-        event.preventDefault();
-        $(id).toggleClass("open-partial");
-        $("button.overlay").toggleClass("hide");
-    });
-
-    $('#create-route').fadeOut(500, function () {
-        $('#create-route').toggleClass("open-slide");
-    });
-
+function partialSlide(slideId) {
+    event.preventDefault();
     $(".modal-overlay").remove();
+    $(slideId).toggleClass("open-partial");
+    $("#create-route-overlay-btn").toggleClass("hide");
+    $('#create-route').fadeToggle(400);
+    
+    $(".close-partial").click(function (event) {
+        event.preventDefault();
+        $(slideId).toggleClass("open-partial");
+        $("#create-route-overlay-btn").toggleClass("hide");
+    });
 }
 
-$(".close-partial").click(function (event) {
-    event.preventDefault();
-    $(this).parent().parent().toggleClass("open-partial");
-    $("button.overlay").toggleClass("hide");
-});

@@ -3,23 +3,19 @@ function openModal(modalId) {
 
     $("body").append(appendthis);
     $(".modal-overlay").fadeTo(500, 0.7);
-    $(".modal-container").fadeIn(500);
+    $(modalId).fadeIn(500);
 
     $(modalId).position({
         my: "center",
         at: "center",
-        of: ".modal-overlay"
+        of: window
     });
     
-    $(".modal-close, .modal-overlay").click(function (event) {
-        event.preventDefault();
-        $(".modal-container, .modal-overlay").fadeOut(400, function () {
-            $(".modal-overlay").remove();
-        });
+    $(".modal-close, .modal-overlay").click(function () {
+        $(modalId).fadeOut(400);
+        $(".modal-overlay").remove();
     });
-}  
-
-
+}
 
 $("#start-event").click(function (event) {
     event.preventDefault();

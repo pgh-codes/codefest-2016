@@ -53,7 +53,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="./assets/js/modal.js"></script>
-      <script src="./assets/js/slideScreens.js"></script>
+    <script src="./assets/js/slideScreens.js"></script>
 </head>
 
   <body>
@@ -252,9 +252,9 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
 </script>
 <!-- MAP END -->
 
-    <p><button class="large overlay" onclick="openModal('#create-route');">Create Route</button></p>
+    <p><button class="large overlay" id="create-route-overlay-btn" onclick="openModal('#create-route');">Create Route</button></p>
 
-    <!-- Create Route -->
+    <!-- Create Route Modal -->
 	<input type="hidden" id="can-id" value="" />
     <div id="create-route" class="modal-container">
         <div class="modal-header">
@@ -286,12 +286,12 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
                 <button value="Create Filtered Route" class="full-width alt-color" style="margin-bottom:0">Create Filtered Route</button>
 
                 <hr>
-                <button value="Create Auto Route" class="pull-right full-width med" onclick="partialSlide('#auto-route');" id="create-route-btn">Create Auto Route</button>
+                <button value="Create Auto Route" class="pull-right full-width med auto-route-btn" onclick="partialSlide('#auto-route');">Create Auto Route</button>
             </form>
         </div>
     </div>
 
-    <!-- Auto Route -->
+    <!-- Auto Route Partial Slide -->
     <div id="auto-route" class="slide-container-partial transition">
         <div class="slide-header">
             <h2 class="pull-left"><i class="fa fa-location-arrow"></i> Create Auto Route</h2>
@@ -304,15 +304,15 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
 
             <form id="bag-collected-form">
                 <div class="btn-group-2">
-                    <button type="submit" form="bag-collected-form" value="End Route" class="bdr-right end-route"><i class="fa fa-times"></i> End Route</button>
-                    <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="end-event"><i class="fa fa-check"></i> Bag Collected</button>
+                    <button value="End Route" class="bdr-right end-route close-partial"><i class="fa fa-times"></i> End Route</button>
+                    <button value="Mark Bag as Collected" class="end-event close-partial"><i class="fa fa-check"></i> Bag Collected</button>
                 </div>
 
             </form>
         </div>
     </div>
 
-    <!-- Trash Can Info -->
+    <!-- Trash Can Info Modal -->
     <div id="trash-can-info" class="modal-container">
         <div class="modal-header">
             <a href="#" class="modal-close close">×</a>
@@ -338,7 +338,7 @@ var refreshCanInterval = setInterval(redrawMarkers, 30000);
             <hr>
 
             <form id="bag-collected-form">
-                <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="full-width large end-event" style="margin-top: 0;">Mark Bag as Collected</button>
+                <button type="submit" form="bag-collected-form" value="Mark Bag as Collected" class="full-width large end-event modal-close" style="margin-top: 0;">Mark Bag as Collected</button>
             </form>
         </div>
     </div>
