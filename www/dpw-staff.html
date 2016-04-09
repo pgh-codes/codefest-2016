@@ -353,22 +353,23 @@ var refreshCanInterval = setInterval(redrawMarkers, 5000);
     <!-- Auto Route Partial Slide -->
     <div id="auto-route" class="slide-container-partial transition">
         <div class="slide-header">
-            <h2 class="pull-left"><i class="fa fa-location-arrow"></i> Create Auto Route</h2>
+            <h2 class="pull-left"><i class="fa fa-location-arrow"></i> Auto Route</h2>
             <a href="#" id="close-partial" class="pull-right">×</a>
             <div class="clearfix"></div>
         </div>
 
         <div class="slide-body">
-            <h3>Directions here</h3>
 
-            <form id="bag-collected-form">
-                <div class="btn-group-2">
-                    <button value="End Route" id="close-partial" class="bdr-right end-route"><i class="fa fa-times"></i> End Route</button>
-                    <button value="Mark Bag as Collected" id="close-partial" class="end-event"><i class="fa fa-check"></i> Bag Collected</button>
-                </div>
 
-            </form>
         </div>
+        
+        <form id="bag-collected-form">
+            <div class="btn-group-2">
+                <button value="End Route" id="close-partial" class="bdr-right end-route"><i class="fa fa-times"></i> End Route</button>
+                <button value="Mark Bag as Collected" id="close-partial" class="end-event"><i class="fa fa-check"></i> Bag Collected</button>
+            </div>
+
+        </form>
     </div>
 
     <!-- Trash Can Info Modal -->

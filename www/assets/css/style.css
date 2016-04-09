@@ -746,11 +746,11 @@ input[type="submit"]:active.warning {
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 1002;
+    z-index: 1003;
 }
 
 .btn-group-2::after {
@@ -823,7 +823,7 @@ input[type="submit"]:active.warning {
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -1237,17 +1237,17 @@ ul.list-names li .fa-lg {
 }
 
 .slide-container-partial .slide-header {
-    margin: 5px 0 10px 0
+    margin: 0 0 10px 0
 }
 
 .slide-container-partial .slide-header h2 {
-    margin: 1px 0 7px 0
+    margin: 0 0 7px 0
 }
 
 .slide-container-partial .slide-body {
     border-top: 1px solid #aaa;
     margin: 0 0 1.5em 0;
-    padding-top: 20px;
+    padding-top: 0;
     font-size: 1.0625em;
     line-height: 1.625em
 }
@@ -1269,7 +1269,7 @@ ul.list-names li .fa-lg {
 }
 
 .open-partial {
-    top: 55.1%
+    top: 42.1%;
 }
 
 .transition {
